@@ -29,12 +29,11 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        $firstName = "Zoe";
-        $lastName = "Mbikakeu";
+        $first = "Zoe";
+        $last = "Mbikakeu";
         $age = "18";
         $city = "Dublin";
-        $sentence = "My name is $firstName $lastName, I am $age years old and I live in $city.";
-        echo $sentence;
+        $sentence = "My name is $first $last, I am $age years old and I live in $city."
         ?>
     </div>
 
