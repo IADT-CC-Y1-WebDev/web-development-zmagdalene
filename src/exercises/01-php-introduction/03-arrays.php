@@ -31,7 +31,10 @@
         // TODO: Write your solution here
         $movies = ["Train To Busan", "The Dark Knight", "Nightcrawler", "Fractured", "Prisoners"];
 
-        echo "Movie 1: $movies[0]<br/>Movie 2: $movies[1]<br/>Movie 3: $movies[2]<br/>Movie 4: $movies[3]<br/>Movie 5: $movies[4]<br/>";
+        for ($i = 0; $i != count($movies); $i++) {
+            echo "Movie " . ($i + 1) . ": " . $movies[$i] . "</br>";
+        }
+        //echo "Movie 1: $movies[0]<br/>Movie 2: $movies[1]<br/>Movie 3: $movies[2]<br/>Movie 4: $movies[3]<br/>Movie 5: $movies[4]<br/>";
         ?>
     </div>
 
@@ -65,7 +68,11 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        $countries = [];
+        $countries = ["Kenya" => "Nairobi", "Germany" => "Berlin", "Japan" => "Tokyo", "Brazil" => "Rio", "Ireland" => "Dublin"];
+
+        foreach ($countries as $key => $value) {
+            echo "The capital of $key is $value.<br/>";
+        }
         ?>
     </div>
 
@@ -83,6 +90,18 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
+        $menu = [
+            "Starters" => ["Caesar Salad" => "€7.50", "Nachos" => "€9", "Chicken wings" => "€9.80"],
+            "Main Course" => ["Roasted Turkey and Gravy" => "€19", "Salmon and Peas" => "€16", "Plant-Based Veggie Burger" => "€18"],
+            "Desserts" => ["Chocolate Fudge Cake" => "€14", "Deep Filled Apple Pie" => "€12", "Fruit and Ice Cream Sundae" => "€10"]
+        ];
+        echo "Menu<br/>__________________";
+        foreach ($menu as $category => $items) {
+            echo "<br/>$category<br/>";
+            foreach ($items as $items => $price) {
+                echo "$items: $price<br/>";
+            }
+        }
         ?>
     </div>
 
