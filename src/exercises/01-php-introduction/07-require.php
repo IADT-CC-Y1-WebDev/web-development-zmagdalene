@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libraries Exercises - PHP Introduction</title>
     <link rel="stylesheet" href="/exercises/css/style.css">
 </head>
+
 <body>
     <div class="back-link">
         <a href="index.php">&larr; Back to PHP Introduction</a>
@@ -22,6 +24,12 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
+        require 'inc/navigation.php';
+        ?>
+        <h1>Navigation</h1>
+        <?php
+        // TODO: Write your solution here
+        require 'inc/navigation.php';
         ?>
     </div>
 
@@ -33,6 +41,7 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
+        require_once 'lib/utilities.php';
         ?>
     </div>
 
@@ -44,8 +53,11 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
+        require_once 'lib/validators.php';
+        require_once 'lib/formatters.php';
         ?>
     </div>
 
 </body>
+
 </html>

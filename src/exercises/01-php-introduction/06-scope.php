@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scope Exercises - PHP Introduction</title>
     <link rel="stylesheet" href="/exercises/css/style.css">
 </head>
+
 <body>
     <div class="back-link">
         <a href="index.php">&larr; Back to PHP Introduction</a>
@@ -17,10 +19,10 @@
     <!-- Exercise 1 -->
     <h2>Exercise 1: Global Counter</h2>
     <p>
-        <strong>Task:</strong> 
-        Create a global variable $totalPoints starting at 0. Create a function 
-        addPoints() that adds a specified number of points to $totalPoints using 
-        the global keyword. Call the function three times with different values 
+        <strong>Task:</strong>
+        Create a global variable $totalPoints starting at 0. Create a function
+        addPoints() that adds a specified number of points to $totalPoints using
+        the global keyword. Call the function three times with different values
         and display the total after each call.
     </p>
 
@@ -28,15 +30,26 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
+        $totalPoints = 0;
+
+        function addPoints($points)
+        {
+            global $totalPoints;
+            $totalPoints += $points;
+            echo "Total Points Now: $totalPoints<br/>";
+        }
+        addPoints(5);
+        addPoints(10);
+        addPoints(20);
         ?>
     </div>
 
     <!-- Exercise 2 -->
     <h2>Exercise 2: Static Visit Counter</h2>
     <p>
-        <strong>Task:</strong> 
+        <strong>Task:</strong>
         Create a function visitCounter() that uses a static variable to count how
-        many times it has been called. Each time it's called, it should display 
+        many times it has been called. Each time it's called, it should display
         the visit count. Call it 5 times.
     </p>
 
@@ -44,16 +57,29 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
+        $count = 0;
+        function visitCounter()
+        {
+            global $count;
+            $count++;
+            echo "$count: 10,000<br/>";
+        }
+
+        visitCounter($count);
+        visitCounter($count);
+        visitCounter($count);
+        visitCounter($count);
+        visitCounter($count);
         ?>
     </div>
 
     <!-- Exercise 3 -->
     <h2>Exercise 3: Local vs Global</h2>
     <p>
-        <strong>Task:</strong> 
-        Create a global variable $message = "Global". Create a function testScope() 
-        that has a local variable $message = "Local". Display both the local 
-        message inside the function and the global message outside the function 
+        <strong>Task:</strong>
+        Create a global variable $message = "Global". Create a function testScope()
+        that has a local variable $message = "Local". Display both the local
+        message inside the function and the global message outside the function
         to demonstrate they are different.
     </p>
 
@@ -61,8 +87,19 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
+        $message = "Global";
+
+        function testScope()
+        {
+            $message = "Local";
+            echo "Local Message: $message";
+        }
+
+        echo "Global Message: $message<br/>";
+        testScope();
         ?>
     </div>
 
 </body>
+
 </html>

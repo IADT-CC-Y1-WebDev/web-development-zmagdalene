@@ -33,7 +33,8 @@
         $last = "Mbikakeu";
         $age = "18";
         $city = "Dublin";
-        $sentence = "My name is $first $last, I am $age years old and I live in $city."
+        $sentence = "My name is $first $last, I am $age years old and I live in $city.";
+        echo $sentence;
         ?>
     </div>
 

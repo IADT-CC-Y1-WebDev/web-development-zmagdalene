@@ -49,12 +49,8 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        $_GET = ["name" => "Zoe Mbikakeu"];
-
-        $name = $_GET['name'];
-
-        if ($_GET['name'] = true) {
-            $name = $name;
+        if (isset($_GET['name'])) {
+            $name = $_GET['name'];
         } else {
             $name = "Guest";
         }
@@ -75,7 +71,14 @@
     <p class="output-label">Output:</p>
     <div class="output">
         <?php
-        // TODO: Write your solution here
+        // TODO: Write your solution heres
+        if (isset($_GET['product']) && isset($_GET['quantity']) && $_GET['quantity'] > 1) {
+            echo "You ordered " . $_GET['quantity'] . " " . $_GET['product'] . "s.";
+        } else if (isset($_GET['product']) && $_GET['quantity'] == 1) {
+            echo "You ordered " . $_GET['quantity'] . " " . $_GET['product'] . ".";
+        } else {
+            echo "Error: Missing ";
+        }
         ?>
     </div>
 
