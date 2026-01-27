@@ -9,16 +9,11 @@
                 $this->name = $name;
                 $this->number = $number;
 
-                echo "Creating Student -> $this->name<br/>";
+                echo "<br/>Creating Student -> $this->name<br/>";
 
                 if (empty($number)) {
                     throw new Exception("Student number cannot be empty!");
                 }
-            }
-
-            public function __toString()
-            {
-                return "Student: $this->name ($this->number)";
             }
 
             public function getName()
@@ -31,14 +26,19 @@
                 return $this->number;
             }
 
+            public function __toString()
+            {
+                return "Student: " . $this->getName() . " (" . $this->getNumber() . ")";
+            }
+
             public function display()
             {
-                echo "Name: " . $this->getName() . "<br/>Number: " . $this->getNumber() . "<br/>Student " . $this->getName() . " has number " . $this->getNumber() . "<br/>" . $this->__toString() . "<br/><br/>";
+                echo "Name: " . $this->getName() . "<br/>Number: " . $this->getNumber() . "<br/>Student " . $this->getName() . " has number " . $this->getNumber() . "<br/>" . $this->__toString() . "<br/>";
             }
 
             public function __destruct()
             {
-                echo "Student $this->name has left the system<br>";
+                echo "<br/>Student $this->name has left the system<br>";
             }
         }
 
@@ -57,12 +57,12 @@
                 $Student->display();
                 $studentInfo[] = $Student;
             } catch (Exception $e) {
-                echo "*Error: " . $e->getMessage() . "*<br/><br/>";
+                echo "*Error: " . $e->getMessage() . "*<br/>";
             }
         }
-        echo "<pre>";
-        print_r($studentInfo);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($studentInfo);
+        // echo "</pre>";
 
         $studentInfo[0] = null;
         $studentInfo[1] = null;
