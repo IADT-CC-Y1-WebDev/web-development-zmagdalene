@@ -1,6 +1,7 @@
  <?php
     // TODO: Write your solution here
     require_once __DIR__ . '/Student.php';
+    require_once __DIR__ . '/Undergrad.php';
 
     echo "<br/><strong>Postgraduate Students</strong><br/>______________________________<br/>";
 
@@ -29,7 +30,7 @@
 
         public function __toString()
         {
-            return "Postgrad: " . $this->getName() . " (" . $this->getNumber() . "), Supervisor: " . $this->getSupervisor() . ", Topic: " . $this->getTopic();
+            return "Postgrad: " . $this->getName() . " (" . $this->getNumber() . "), Supervisor: " . $this->getSupervisor() . ", Topic: " . $this->getTopic() . "<br/>";
         }
 
         public function display()
@@ -55,18 +56,41 @@
 
     $attendeesInfo = [];
 
-    // foreach ($attendees as $level => $info) {
-    //     foreach ($info as $item) {
-
-    //         try {
-    //             $level = new Student($data[0], $data[1]);
-    //             $Undergrad = new Undergrad($data[0], $data[1], $data[2], $data[3]);
-    //             $Postgrad = new Postgrad($data[0], $data[1], $data[2], $data[3]);
-    //             $Postgrad->display();
-    //             $postgradInfo[] = $Postgrad;
-    //         } catch (Exception $e) {
-    //             echo "*Error: " . $e->getMessage() . "*<br/><br/>";
-    //         }
-    //     }
+    // for ($i = 0; $i < count($attendees); $i++) {
     // }
+
+    foreach ($attendees as $level => $info) {
+
+        // $Student = new $level($info);
+        // $Student->display();
+        // foreach ($info as $item) {
+
+        try {
+
+            if ($level === "Student") {
+                echo "<br/><strong>Students</strong><br/>______________________________<br/>";
+                $attendee = new Student($info[0], $info[1]);
+            } else if ($level === "Undergrad") {
+                echo "<br/><strong>Undergraduates</strong><br/>______________________________<br/>";
+                $attendee = new Undergrad($info[0], $info[1], $info[2], $info[3]);
+            } else if ($level === "Postgrad") {
+                echo "<br/><strong>Postgraduates</strong><br/>______________________________<br/>";
+                $attendee = new Postgrad($info[0], $info[1], $info[2], $info[3]);
+            } else {
+                echo "*Invalid Attendee*";
+            }
+
+            $attendee->display();
+            $attendeesInfo[] = $attendee;
+
+            // $Student = new Student($data[0], $data[1]);
+            // $Undergrad = new Undergrad($data[0], $data[1], $data[2], $data[3]);
+            // $Postgrad = new Postgrad($data[0], $data[1], $data[2], $data[3]);
+            // $Postgrad->display();
+            // $postgradInfo[] = $Postgrad;
+        } catch (Exception $e) {
+            echo "*Error: " . $e->getMessage() . "*<br/><br/>";
+        }
+    }
+
     ?>

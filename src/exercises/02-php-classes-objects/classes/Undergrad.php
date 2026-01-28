@@ -1,6 +1,6 @@
 <?php
 // TODO: Write your solution here
-require_once __DIR__ . '/student.php';
+require_once __DIR__ . '/Student.php';
 
 echo "<br/><strong>Undergraduate Students</strong><br/>______________________________<br/>";
 

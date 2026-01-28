@@ -1,14 +1,22 @@
         <?php
         // TODO: Write your solution here
+
+        echo "<br/><strong>Students</strong><br/>______________________________<br/>";
+
         class Student
         {
+
+            private static array $students = [];
+
             protected $name;
             protected $number;
+
             public function __construct($name, $number)
             {
                 $this->name = $name;
                 $this->number = $number;
 
+                self::$students[$number->$name];
                 echo "<br/>Creating Student -> $this->name<br/>";
 
                 if (empty($number)) {
@@ -24,6 +32,19 @@
             public function getNumber()
             {
                 return $this->number;
+            }
+
+            // public static function findByNumber($number) {
+            //     return self::
+            // }
+
+            public static function findAll() {
+                return self::$students;
+            }
+
+            public static function getCount()
+            {
+                return count(Student::findAll());
             }
 
             public function __toString()
@@ -55,6 +76,7 @@
             try {
                 $Student = new Student($data[0], $data[1]);
                 $Student->display();
+                echo "Count:" . Student::getCount() . "<br/>";
                 $studentInfo[] = $Student;
             } catch (Exception $e) {
                 echo "*Error: " . $e->getMessage() . "*<br/>";
