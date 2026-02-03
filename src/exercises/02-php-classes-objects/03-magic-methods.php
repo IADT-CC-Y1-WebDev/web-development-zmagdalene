@@ -32,7 +32,12 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/Student.php';
+        require_once __DIR__ . '/classes/Student.php';
+        $student02 = new Student("Joe Mbikakeu", "n00256888");
+        $student03 = new Student("Bill Mbikakeu", "n00256777");
+
+        echo $student02 . "<br/>";
+        echo $student03;
         ?>
     </div>
 
@@ -52,7 +57,12 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/Student.php';
+        require_once __DIR__ . '/classes/Student.php';
+        $student02 = new Student("Joey Mbikakeu", "n00256888");
+        $student03 = new Student("Billy Mbikakeu", "n00256777");
+
+        echo $student02 . "<br/>";
+        echo $student03;
         ?>
     </div>
 
@@ -73,7 +83,16 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/Student.php';
+        require_once __DIR__ . '/classes/Student.php';
+        $students = [];
+
+        $students[] = new Student("Jane Mbikakeu", "n00256111");
+        $students[] = new Student("Jake Mbikakeu", "n00256111");
+        $students[] = new Student("Jill Mbikakeu", "n00256111");
+
+        foreach ($students as $s) {
+            echo $s . "<br/>";
+        }
         ?>
     </div>
 
@@ -94,12 +113,12 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/Student.php';
-        // $student1 = new Student("Alice", "S001");
-        // $student2 = new Student("Bob", "S002");
-        // echo "Setting student1 to null...<br>";
-        // $student1 = null;
-        // echo "Script ending...<br>";
+        require_once __DIR__ . '/classes/Student.php';
+        $student1 = new Student("Alice", "S001");
+        $student2 = new Student("Bob", "S002");
+        echo "Setting student1 to null...<br>";
+        $student1 = null;
+        echo "Script ending...<br>";
         ?>
     </div>
 

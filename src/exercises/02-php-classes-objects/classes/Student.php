@@ -1,110 +1,61 @@
-        <?php
-        // TODO: Write your solution here
+<?php
+class Student
+{
 
-        echo "<br/><strong>Students</strong><br/>______________________________<br/>";
+    private static array $students = [];
 
-        class Student
-        {
+    protected $name;
+    protected $number;
 
-            private static array $students = [];
-
-            protected $name;
-            protected $number;
-
-            public function __construct($name, $number)
-            {
-                $this->name = $name;
-                $this->number = $number;
-
-                self::$students[$number->$name];
-                echo "<br/>Creating Student -> $this->name<br/>";
-
-                if (empty($number)) {
-                    throw new Exception("Student number cannot be empty!");
-                }
-            }
-
-            public function getName()
-            {
-                return $this->name;
-            }
-
-            public function getNumber()
-            {
-                return $this->number;
-            }
-
-            // public static function findByNumber($number) {
-            //     return self::
-            // }
-
-            public static function findAll() {
-                return self::$students;
-            }
-
-            public static function getCount()
-            {
-                return count(Student::findAll());
-            }
-
-            public function __toString()
-            {
-                return "Student: " . $this->getName() . " (" . $this->getNumber() . ")";
-            }
-
-            public function display()
-            {
-                echo "Name: " . $this->getName() . "<br/>Number: " . $this->getNumber() . "<br/>Student " . $this->getName() . " has number " . $this->getNumber() . "<br/>" . $this->__toString() . "<br/>";
-            }
-
-            public function __destruct()
-            {
-                echo "<br/>Student $this->name has left the system<br>";
-            }
+    public function __construct($name, $number)
+    {
+        if (empty($number)) {
+            throw new Exception("Student number cannot be empty!");
         }
+        $this->name = $name;
+        $this->number = $number;
 
-        $students = [
-            ["Zoe Mbikakeu", "n00256791"],
-            ["Zoe Magdalene", "n00145680"],
-            ["Magdalene Mbikakeu", "n00357802"],
-            ["Anne Shirley", ""]
-        ];
+        self::$students[$number] = $this;
+    }
 
-        $studentInfo = [];
+    public function getName()
+    {
+        return $this->name;
+    }
 
-        foreach ($students as $data) {
-            try {
-                $Student = new Student($data[0], $data[1]);
-                $Student->display();
-                echo "Count:" . Student::getCount() . "<br/>";
-                $studentInfo[] = $Student;
-            } catch (Exception $e) {
-                echo "*Error: " . $e->getMessage() . "*<br/>";
-            }
-        }
-        // echo "<pre>";
-        // print_r($studentInfo);
-        // echo "</pre>";
+    public function getNumber()
+    {
+        return $this->number;
+    }
 
-        $studentInfo[0] = null;
-        $studentInfo[1] = null;
-        $studentInfo[2] = null;
-        $Student = null;
+    public static function findByNumber($number)
+    {
+        return self::$students[$number] ?? null;
+    }
 
-        /*try {
-            $Student01 = new Student("Zoe Mbikakeu", "n00256791");
-            $Student01->display();
-            $Student02 = new Student("Zoe Magdalene", "n00145680");
-            $Student02->display();
-            $Student03 = new Student("Magdalene Mbikakeu", "n00357802");
-            $Student03->display();
-            $Student04 = new Student("Anne Shirley", "");
-            $Student04->display();
-            $Student05 = null;
-        } catch (Exception $e) {
-            echo "*Error: " . $e->getMessage() . "*<br/><br/>";
-        }*/
+    public static function findAll()
+    {
+        return self::$students;
+    }
 
-        //echo $Student->name;
-        //echo $Student->number;
+    public static function getCount()
+    {
+        return count(Student::findAll());
+    }
+
+    public function __toString()
+    {
+        return "Student: " . $this->getName() . " (" . $this->getNumber() . ")";
+    }
+
+    // public function display()
+    // {
+    //     echo "Name: " . $this->getName() . "<br/>Number: " . $this->getNumber() . "<br/>Student " . $this->getName() . " has number " . $this->getNumber() . "<br/>" . $this->__toString() . "<br/>";
+    // }
+
+    public function __destruct()
+    {
+        echo "<br/>Student $this->name has left the system<br>";
+    }
+}
         ?>

@@ -40,6 +40,10 @@
         <?php
         // TODO: Write your solution here
         require_once __DIR__ . '/classes/Undergrad.php';
+        $undergrad = new Undergrad("Mat Pat", "n00223916", "Creative Computing", "3rd");
+
+        Undergrad->getName();
+
         ?>
     </div>
 
