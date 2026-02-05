@@ -34,7 +34,13 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        require_once __DIR__ . '/classes/Postgrad.php';
+        require_once __DIR__ . '/classes/Student.php';
+        require_once __DIR__ . '/classes/Undergrad.php';
+
+        $student = new Student("Joe Mbikakeu", "n00256888");
+        $undergrad = new Undergrad("Mat Pat", "n00223916", "Creative Computing", "3rd");
+
+        echo $student . "<br/>" . $undergrad;
         ?>
     </div>
 
@@ -62,7 +68,10 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/Postgrad.php';
+        require_once __DIR__ . '/classes/Postgrad.php';
+
+        $postgrad = new Postgrad("Clementine Lemons", "n00201454", "John Montayne", "UX Design");
+        echo $postgrad;
         ?>
     </div>
 
@@ -79,8 +88,18 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/Undergrad.php';
-        // require_once __DIR__ . '/classes/Postgrad.php';
+        require_once __DIR__ . '/classes/Student.php';
+        require_once __DIR__ . '/classes/Undergrad.php';
+        require_once __DIR__ . '/classes/Postgrad.php';
+
+        $attendees = [];
+        $attendees[] = new Student("Albert Einstein", "n00111111");
+        $attendees[] = new Undergrad("Katniss Everdeen", "n00232475", "English + Equality Studies", "3rd");
+        $attendees[] = new Postgrad("Joyce Byers", "n00201375", "Grainne Caroll", "3D Animation");
+
+        foreach ($attendees as $a) {
+            echo $a;
+        }
         ?>
     </div>
 

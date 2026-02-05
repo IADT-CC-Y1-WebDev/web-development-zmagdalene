@@ -45,7 +45,7 @@ class Student
 
     public function __toString()
     {
-        return "Student: " . $this->getName() . " (" . $this->getNumber() . ")";
+        return "Student: " . $this->getName() . " (" . $this->getNumber() . ")<br/>";
     }
 
     // public function display()

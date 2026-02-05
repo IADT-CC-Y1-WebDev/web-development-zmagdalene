@@ -42,7 +42,7 @@
         require_once __DIR__ . '/classes/Undergrad.php';
         $undergrad = new Undergrad("Mat Pat", "n00223916", "Creative Computing", "3rd");
 
-        Undergrad->getName();
+        echo $undergrad->getName();
 
         ?>
     </div>
@@ -65,6 +65,7 @@
         <?php
         // TODO: Write your solution here
         // require_once __DIR__ . '/classes/Undergrad.php';
+        echo $undergrad;
         ?>
     </div>
 
@@ -82,6 +83,14 @@
         <?php
         // TODO: Write your solution here
         // require_once __DIR__ . '/classes/Undergrad.php';
+        $undergrads = [];
+        $undergrads[] = new Undergrad("Mat Pat", "n00223916", "Creative Computing", "3rd");
+        $undergrads[] = new Undergrad("Will Byers", "n00245936", "Design For Film", "2nd");
+        $undergrads[] = new Undergrad("Jane Hopper", "n00212715", "Applied Psychology", "4th");
+
+        foreach ($undergrads as $u) {
+            echo $u;
+        }
         ?>
     </div>
 

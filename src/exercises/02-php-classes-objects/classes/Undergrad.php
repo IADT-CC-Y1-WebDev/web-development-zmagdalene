@@ -28,7 +28,7 @@ class Undergrad extends Student
 
     public function __toString()
     {
-        echo "Undergrad: " . $this->getName() . " (" . $this->getNumber() . "), " . $this->getCourse() . ", " . $this->getYear() . " year<br/>";
+        return "Undergrad: " . $this->getName() . " (" . $this->getNumber() . "), " . $this->getCourse() . ", " . $this->getYear() . " year<br/>";
         return parent::__toString();
     }
 
@@ -39,4 +39,3 @@ class Undergrad extends Student
     // }
 }
 ?>
-</div>
