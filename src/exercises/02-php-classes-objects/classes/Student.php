@@ -43,6 +43,14 @@ class Student
         return count(Student::findAll());
     }
 
+    public function leave() {
+        unset(self::$students[$this->number]);
+    }
+
+    public static function reset(): void {
+        self::$students = [];
+    }
+
     public function __toString()
     {
         return "Student: " . $this->getName() . " (" . $this->getNumber() . ")<br/>";
@@ -55,7 +63,7 @@ class Student
 
     public function __destruct()
     {
-        echo "<br/>Student $this->name has left the system<br>";
+        //echo "<br/>Student $this->name has left the system<br>";
     }
 }
         ?>

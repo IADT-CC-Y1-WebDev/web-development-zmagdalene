@@ -46,9 +46,15 @@ if (isset($_GET['reset'])) {
 // 2. Set a new 'last_visit' cookie with the current timestamp
 // -----------------------------------------------------------------------------
 // TODO Exercise 4: Write your solution here
-if (isset($_GET['lastVisit']))
+$lastVisit = null;
 
-    setcookie('lastVisit', '', )
+if (isset($_COOKIE['lastVisit'])) {
+    $lastVisit = $_COOKIE['lastVisit'];
+}
+
+$currentTime = date('Y-m-d H:i:s');
+$expiryTime = time() + (60 * 60 * 24 * 30);
+setcookie('lastVisit', $currentTime, $expiryTime, '/');
 // =============================================================================
 ?>
 <!DOCTYPE html>
@@ -159,7 +165,11 @@ if (isset($_GET['lastVisit']))
         // Example output: "Your last visit was: 2024-01-15 10:30:45"
         // ---------------------------------------------------------------------
         // TODO Exercise 4: Write your solution here
-
+        if ($lastVisit !== null) {
+            echo "Your last visit was: " . $lastVisit;
+        } else {
+            echo "This is your first visit!";
+        }
         // =====================================================================
         ?>
     </div>
