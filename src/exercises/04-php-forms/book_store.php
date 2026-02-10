@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User Registration Handler - Exercise
  *
@@ -30,14 +31,22 @@ try {
     // See: /examples/04-php-forms/step-01-form-submission/
     // =========================================================================
     // TODO: First, just dump the posted data to see what's submitted
-
+    dd($_POST);
 
     // =========================================================================
     // STEP 2: Check Request Method
     // See: /examples/04-php-forms/step-02-request-method/
     // =========================================================================
     // TODO: Check that the request method is POST
+    try {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            throw new Exception(('Invalid request method'));
+        }
 
+        dd($_POST);
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
 
     // =========================================================================
     // STEP 3: Extract Data
@@ -51,6 +60,25 @@ try {
     // extraction:
     // 'format_ids' => $_POST['format_ids'] ?? []
 
+    try {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            throw new Exception('Invalid request method');
+        }
+        $data = [
+            'title' => $_POST['title'] ?? null,
+            'author' => $_POST['author'] ?? null,
+            'publisher_id' => $_POST['publisher_id'] ?? null,
+            'year' => $_POST['year'] ?? null,
+            'isbn' => $_POST['isbn'] ?? null,
+            'format_ids' => $_POST['format_ids'] ?? [],
+            'description' => $_POST['description'] ?? null,
+            'cover' => $_POST['cover'] ?? null
+        ];
+
+        dd($data);
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
 
     // =========================================================================
     // STEP 4: Validate Data
@@ -61,6 +89,43 @@ try {
     // Create validator and check if validation fails; if so, store the first 
     // error for each field in the $errors array and throw an exception
 
+    try {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            throw new Exception('Invalid request method');
+        }
+        $data = [
+            'title' => $_POST['title'] ?? null,
+            'author' => $_POST['author'] ?? null,
+            'publisher_id' => $_POST['publisher_id'] ?? null,
+            'year' => $_POST['year'] ?? null,
+            'isbn' => $_POST['isbn'] ?? null,
+            'format_ids' => $_POST['format_ids'] ?? [],
+            'description' => $_POST['description'] ?? null,
+            'cover' => $_POST['cover'] ?? null
+        ];
+
+        $rules = [
+            'title' => 'required|notempty|min:3|max:255',
+            'author' => 'required|notempty|min:3|max:255',
+            'publisher_id' => 'required|integer',
+            'year' => 'required|integer|digits:4|between:1900,2026',
+            'isbn' => 'required|notempty|digits:13|',
+            'description' => 'required|notempty',
+            'cover' => 'required|file|image|max:2048',
+            'format_ids' => 'required|array|integer'
+        ];
+
+        $validator = new Validator($data, $rules);
+
+        if ($validator->fails()) {
+            dd($validator->errors(), true);
+        }
+
+        echo "Validation passed!";
+        dd($data);
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
 
     // =========================================================================
     // STEP 9: File Uploads
@@ -93,8 +158,7 @@ try {
     // =========================================================================
     // TODO: On successful registration, set a success flash message and 
     // redirect back to the form
-}
-catch (Exception $e) {
+} catch (Exception $e) {
     // =========================================================================
     // STEP 5: Store Errors and Redirect
     // See: /examples/04-php-forms/step-05-display-errors/
@@ -116,5 +180,5 @@ catch (Exception $e) {
     // =========================================================================
     // TODO: On validation error, you set an error flash message
 
-    
+
 }

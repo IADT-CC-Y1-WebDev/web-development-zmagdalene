@@ -7,11 +7,18 @@
 
 // TODO Exercise 1: Start the session
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // TODO Exercise 2: Redirect to step 1 if quiz not started or not complete
 // Check if $_SESSION['food_quiz'] exists AND 'completed_at' is set
 // If not, redirect to step1.php
 
+if (!isset($_SESSION['food_quiz']) && !isset($_SESSION['food_quiz']['complete_at'])) {
+    header('Location: step1.php');
+    exit;
+}
 
 // Get quiz data (this is provided, but depends on your session being set up correctly)
 $answers = isset($_SESSION['food_quiz']['answers']) ? $_SESSION['food_quiz']['answers'] : [];
@@ -31,6 +38,7 @@ $recommendation = isset($recommendations[$cuisine]) ? $recommendations[$cuisine]
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +52,7 @@ $recommendation = isset($recommendations[$cuisine]) ? $recommendations[$cuisine]
             border-radius: 8px;
             overflow: hidden;
         }
+
         .progress-step {
             flex: 1;
             padding: 0.75rem;
@@ -51,9 +60,21 @@ $recommendation = isset($recommendations[$cuisine]) ? $recommendations[$cuisine]
             background: #e0e0e0;
             border-right: 1px solid #ccc;
         }
-        .progress-step:last-child { border-right: none; }
-        .progress-step.active { background: #3498db; color: white; }
-        .progress-step.completed { background: #27ae60; color: white; }
+
+        .progress-step:last-child {
+            border-right: none;
+        }
+
+        .progress-step.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .progress-step.completed {
+            background: #27ae60;
+            color: white;
+        }
+
         .results-box {
             background: #d4edda;
             padding: 2rem;
@@ -61,22 +82,26 @@ $recommendation = isset($recommendations[$cuisine]) ? $recommendations[$cuisine]
             text-align: center;
             margin: 1rem 0;
         }
+
         .answers-summary {
             background: #f9f9f9;
             padding: 1.5rem;
             border-radius: 8px;
             margin: 1rem 0;
         }
+
         .answers-summary ul {
             list-style: none;
             padding: 0;
         }
+
         .answers-summary li {
             padding: 0.5rem 0;
             border-bottom: 1px solid #eee;
         }
     </style>
 </head>
+
 <body>
     <div class="back-link">
         <a href="../index.php">&larr; Back to Cookies &amp; Sessions</a>
@@ -128,12 +153,12 @@ $recommendation = isset($recommendations[$cuisine]) ? $recommendations[$cuisine]
     <h2>Debug: Full Session Data</h2>
     <div class="output">
         <pre><?php
-        if (isset($_SESSION['food_quiz'])) {
-            print_r($_SESSION['food_quiz']);
-        } else {
-            echo "No quiz data found";
-        }
-        ?></pre>
+                if (isset($_SESSION['food_quiz'])) {
+                    print_r($_SESSION['food_quiz']);
+                } else {
+                    echo "No quiz data found";
+                }
+                ?></pre>
     </div>
 
     <!-- Bonus Exercise -->
@@ -145,4 +170,5 @@ $recommendation = isset($recommendations[$cuisine]) ? $recommendations[$cuisine]
     </p>
 
 </body>
+
 </html>

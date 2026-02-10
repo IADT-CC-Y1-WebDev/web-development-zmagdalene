@@ -11,14 +11,16 @@ require_once './etc/config.php';
 // Exercise 1: Start the session
 // -----------------------------------------------------------------------------
 // TODO: Write your code here
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 // =============================================================================
 
 // =============================================================================
 // Exercise 2: Initialize the cart
 // -----------------------------------------------------------------------------
 // TODO: Write your code here
-
+$cart = ShoppingCart::getInstance();
 // =============================================================================
 
 // =============================================================================
@@ -29,7 +31,11 @@ require_once './etc/config.php';
 // 3. Redirect back to cart.php
 // -----------------------------------------------------------------------------
 // TODO: Write your code here
-
+if (isset($_GET['remove'])) {
+    $cart->remove((int)$_GET['remove']);
+    header('Location: cart.php');
+    exit;
+}
 // =============================================================================
 
 // =============================================================================
@@ -39,7 +45,11 @@ require_once './etc/config.php';
 // 2. Redirect back to cart.php
 // -----------------------------------------------------------------------------
 // TODO: Write your code here
-
+if (isset($_GET['clear'])) {
+    $cart->clear((int)$_GET['remove']);
+    header('Location: cart.php');
+    exit;
+}
 // =============================================================================
 
 // =============================================================================
@@ -50,7 +60,11 @@ require_once './etc/config.php';
 // 3. Redirect back to cart.php
 // -----------------------------------------------------------------------------
 // TODO: Write your code here
-
+if (isset($_GET['update']) && isset($_GET['qty'])) {
+    $cart->updateQuantity((int)$_GET['update'], (int)$_GET['qty']);
+    header('Location: cart.php');
+    exit;
+}
 // =============================================================================
 
 // Retrieve the cart count and total
@@ -59,6 +73,7 @@ $cartCount = isset($cart) ? $cart->getCount() : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +86,11 @@ $cartCount = isset($cart) ? $cart->getCount() : 0;
             border-radius: 8px;
             margin: 1rem 0;
         }
-        .nav-bar a { margin-right: 1rem; }
+
+        .nav-bar a {
+            margin-right: 1rem;
+        }
+
         .cart-count {
             background: #e74c3c;
             color: white;
@@ -79,28 +98,37 @@ $cartCount = isset($cart) ? $cart->getCount() : 0;
             padding: 0.2rem 0.5rem;
             font-size: 0.8rem;
         }
+
         .cart-table {
             width: 100%;
             border-collapse: collapse;
             margin: 1rem 0;
         }
-        .cart-table th, .cart-table td {
+
+        .cart-table th,
+        .cart-table td {
             padding: 0.75rem;
             border: 1px solid #ddd;
             text-align: left;
         }
-        .cart-table th { background: #f5f5f5; }
+
+        .cart-table th {
+            background: #f5f5f5;
+        }
+
         .cart-total {
             font-size: 1.25rem;
             text-align: right;
             margin: 1rem 0;
         }
+
         .empty-cart {
             text-align: center;
             padding: 2rem;
             background: #f9f9f9;
             border-radius: 8px;
         }
+
         .qty-links a {
             display: inline-block;
             width: 24px;
@@ -111,7 +139,11 @@ $cartCount = isset($cart) ? $cart->getCount() : 0;
             text-decoration: none;
             border-radius: 4px;
         }
-        .qty-links a:hover { background: #ddd; }
+
+        .qty-links a:hover {
+            background: #ddd;
+        }
+
         .empty-cart {
             text-align: center;
             padding: 2rem;
@@ -120,6 +152,7 @@ $cartCount = isset($cart) ? $cart->getCount() : 0;
         }
     </style>
 </head>
+
 <body>
     <div class="back-link">
         <a href="../index.php">&larr; Back to Cookies &amp; Sessions</a>
@@ -139,11 +172,11 @@ $cartCount = isset($cart) ? $cart->getCount() : 0;
     <h2>Exercise: Display and Manage Cart</h2>
     <p>
         <strong>Tasks:</strong>
-        <ol>
-            <li>Complete the remove and clear handlers at the top</li>
-            <li>Complete the cart total calculation</li>
-            <li>The display code below is provided for you</li>
-        </ol>
+    <ol>
+        <li>Complete the remove and clear handlers at the top</li>
+        <li>Complete the cart total calculation</li>
+        <li>The display code below is provided for you</li>
+    </ol>
     </p>
 
     <!-- Cart Contents -->
@@ -175,7 +208,9 @@ $cartCount = isset($cart) ? $cart->getCount() : 0;
                             // -------------------------------------------------
                             ?>
                             <span class="qty-links">
-                                <?= $item->quantity ?>
+                                <a href="?update=<?= $item->productId ?>&qty=<?= $item->quantity - 1 ?>">-</a>
+                                <strong><?= $item->quantity ?></strong>
+                                <a href="?update=<?= $item->productId ?>&qty=<?= $item->quantity + 1 ?>">+</a>
                             </span>
                             <?php
                             // =================================================
@@ -202,11 +237,12 @@ $cartCount = isset($cart) ? $cart->getCount() : 0;
     <h2>Bonus Exercise: Update Quantity</h2>
     <p>
         <strong>Task:</strong> Add the ability to update item quantities. You'll need to:
-        <ol>
-            <li>Add a handler for <code>$_GET['update']</code> and <code>$_GET['qty']</code></li>
-            <li>Add +/- links in the quantity column of the table</li>
-        </ol>
+    <ol>
+        <li>Add a handler for <code>$_GET['update']</code> and <code>$_GET['qty']</code></li>
+        <li>Add +/- links in the quantity column of the table</li>
+    </ol>
     </p>
 
 </body>
+
 </html>

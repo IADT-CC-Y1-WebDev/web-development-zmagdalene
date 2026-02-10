@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Namespaces Exercises - PHP Classes &amp; Objects</title>
     <link rel="stylesheet" href="/exercises/css/style.css">
 </head>
+
 <body>
     <div class="back-link">
         <a href="index.php">&larr; Back to Classes &amp; Objects</a>
@@ -35,9 +37,9 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/College/Student.php';
-        // $student = new \College\Student("Alice", "C12345");
-        // echo $student;
+        require_once __DIR__ . '/classes/College/Student.php';
+        $student = new \College\Student("Alice", "C12345");
+        echo $student;
         ?>
     </div>
 
@@ -54,10 +56,12 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/College/Student.php';
-        // use College\Student;
-        // $student = new Student("Bob", "C12346");
-        // echo $student;
+        require_once __DIR__ . '/classes/College/Student.php';
+
+        use College\Student;
+
+        $student = new Student("Bob", "C12346");
+        echo $student;
         ?>
     </div>
 
@@ -79,14 +83,21 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/classes/College/Student.php';
-        // require_once __DIR__ . '/classes/College/Undergrad.php';
-        // require_once __DIR__ . '/classes/College/Postgrad.php';
-        // use College\Student;
-        // use College\Undergrad;
-        // use College\Postgrad;
+        require_once __DIR__ . '/classes/College/Student.php';
+        require_once __DIR__ . '/classes/College/Undergrad.php';
+        require_once __DIR__ . '/classes/College/Postgrad.php';
+
+        use College\Undergrad;
+        use College\Postgrad;
+
+        $student = new Student("Albert Einstein", "n00111111");
+        $undergrad = new Undergrad("Katniss Everdeen", "n00232475", "English + Equality Studies", "3rd");
+        $postgrad = new Postgrad("Joyce Byers", "n00201375", "Grainne Caroll", "3D Animation");
+
+        echo $student . $undergrad . $postgrad;
         ?>
     </div>
 
 </body>
+
 </html>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autoloader Exercises - PHP Classes &amp; Objects</title>
     <link rel="stylesheet" href="/exercises/css/style.css">
 </head>
+
 <body>
     <div class="back-link">
         <a href="index.php">&larr; Back to Classes &amp; Objects</a>
@@ -38,16 +40,18 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // spl_autoload_register(function ($class) {
-        //     $path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-        //     $file = __DIR__ . '/classes/' . $path . '.php';
-        //     if (file_exists($file)) {
-        //         require_once $file;
-        //     }
-        // });
-        // use College\Student;
-        // $student = new Student("Alice", "C12345");
-        // echo $student;
+        spl_autoload_register(function ($class) {
+            $path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+            $file = __DIR__ . '/classes/' . $path . '.php';
+            if (file_exists($file)) {
+                require_once $file;
+            }
+        });
+
+        use College\Student;
+
+        $student = new Student("Alice", "C12345");
+        echo $student;
         ?>
     </div>
 
@@ -65,10 +69,16 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
-        // require_once __DIR__ . '/etc/config.php';
-        // use College\Student;
-        // use College\Undergrad;
-        // use College\Postgrad;
+        require_once __DIR__ . '/etc/config.php';
+
+        use College\Undergrad;
+        use College\Postgrad;
+
+        $student = new Student("Albert Einstein", "n00111111");
+        $undergrad = new Undergrad("Katniss Everdeen", "n00232475", "English + Equality Studies", "3rd");
+        $postgrad = new Postgrad("Joyce Byers", "n00201375", "Grainne Caroll", "3D Animation");
+
+        echo $student . $undergrad . $postgrad;
         ?>
     </div>
 
@@ -93,8 +103,30 @@
     <div class="output">
         <?php
         // TODO: Write your solution here
+        spl_autoload_register(function ($class) {
+            $path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+            $file = __DIR__ . '/classes/' . $path . '.php';
+            if (file_exists($file)) {
+                require_once $file;
+            }
+        });
+
+        Student::reset();
+
+        $students = [];
+        $students[] = new Student("Ariana Grande", "n00479256");
+        $students[] = new Student("Taylor Swift", "n00324791");
+        $students[] = new Student("Nicki Minaj", "n00298452");
+
+        foreach (Student::findAll() as $student) {
+            echo $student;
+        }
+
+        $found = Student::findByNumber("n00324791");
+        echo "<br/>Found n00324791-> " . $found;
         ?>
     </div>
 
 </body>
+
 </html>

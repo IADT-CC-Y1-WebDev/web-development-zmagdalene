@@ -8,7 +8,9 @@
 
 // TODO Exercise 1: Start the session
 
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 // Available users (this is provided for you)
 $users = ['alice', 'bob', 'charlie', 'dana'];
 
@@ -19,7 +21,21 @@ $users = ['alice', 'bob', 'charlie', 'dana'];
 // 3. If valid, set $_SESSION['logged_in_user'] to the username
 // 4. If $_GET['remember'] is also set, save a cookie 'remembered_user' (30 days)
 // 5. Redirect back to this page
+$expiry = time() + (60 * 60 * 24 * 30);
 
+if (isset($_GET['login'])) {
+    $username = $_GET['login'];
+
+    if (in_array($username, $users)) {
+        $_SESSION['logged_in_user'] = $username;
+
+        if (isset($_GET['remember'])) {
+            setcookie('remembered_user', $username, $expiry, '/');
+        }
+    }
+    header('Location: 04-remember-me.php');
+    exit;
+}
 
 // TODO Exercise 3: Handle "Logout" action
 // When $_GET['logout'] is set:
@@ -27,12 +43,29 @@ $users = ['alice', 'bob', 'charlie', 'dana'];
 // 2. If $_GET['forget'] is also set, delete the 'remembered_user' cookie
 // 3. Redirect back to this page
 
+if (isset($_GET['logout'])) {
+    unset($_SESSION['logged_in_user']);
+
+    if (isset($_GET['forget'])) {
+        $expiry = time() - 3600;
+        setcookie('remembered_user', '', $expiry, '/');
+    }
+    header('Location: 04-remember-me.php');
+    exit;
+}
 
 // TODO Exercise 4: Handle "Clear Remember Cookie" action
 // When $_GET['clear_cookie'] is set:
 // 1. Delete the 'remembered_user' cookie
 // 2. Redirect back to this page
 
+if (isset($_GET['clear_cookie'])) {
+    $expiry - time() - 3600;
+    setcookie('remembered_user', '', $expiry, '/');
+
+    header('Location: 04-remember-me.php');
+    exit;
+}
 
 // Determine current state (this is provided for you)
 $isLoggedIn = isset($_SESSION['logged_in_user']);
@@ -41,6 +74,7 @@ $rememberedUser = isset($_COOKIE['remembered_user']) ? $_COOKIE['remembered_user
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,8 +86,17 @@ $rememberedUser = isset($_COOKIE['remembered_user']) ? $_COOKIE['remembered_user
             border-radius: 8px;
             margin: 1rem 0;
         }
-        .logged-in { background: #d4edda; border: 1px solid #c3e6cb; }
-        .logged-out { background: #f8f9fa; border: 1px solid #dee2e6; }
+
+        .logged-in {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .logged-out {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+
         .remember-notice {
             background: #fff3cd;
             border: 1px solid #ffeeba;
@@ -61,12 +104,14 @@ $rememberedUser = isset($_COOKIE['remembered_user']) ? $_COOKIE['remembered_user
             border-radius: 8px;
             margin: 1rem 0;
         }
+
         .user-buttons {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
             margin: 1rem 0;
         }
+
         .user-buttons a {
             padding: 0.5rem 1rem;
             border-radius: 4px;
@@ -74,25 +119,40 @@ $rememberedUser = isset($_COOKIE['remembered_user']) ? $_COOKIE['remembered_user
             background: #3498db;
             color: white;
         }
-        .user-buttons a:hover { background: #2980b9; }
-        .user-buttons a.remember { background: #27ae60; }
-        .user-buttons a.remember:hover { background: #219a52; }
+
+        .user-buttons a:hover {
+            background: #2980b9;
+        }
+
+        .user-buttons a.remember {
+            background: #27ae60;
+        }
+
+        .user-buttons a.remember:hover {
+            background: #219a52;
+        }
+
         .state-display {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
             margin: 1rem 0;
         }
+
         .state-box {
             padding: 1rem;
             border: 1px solid #ddd;
             border-radius: 8px;
         }
+
         @media (max-width: 600px) {
-            .state-display { grid-template-columns: 1fr; }
+            .state-display {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="back-link">
         <a href="index.php">&larr; Back to Cookies &amp; Sessions</a>
@@ -177,23 +237,27 @@ $rememberedUser = isset($_COOKIE['remembered_user']) ? $_COOKIE['remembered_user
     <h2>Exercise 5: Test Your Implementation</h2>
     <p>
         <strong>Task:</strong> Test the following scenarios:
-        <ol>
-            <li>Login without "Remember" → Close browser → Reopen → You should be logged out</li>
-            <li>Login with "Remember" → Close browser → Reopen → You should see "Welcome back"</li>
-            <li>Click "Logout (keep cookie)" → The cookie should remain</li>
-            <li>Click "Logout and forget me" → Both session and cookie should be cleared</li>
-        </ol>
+    <ol>
+        <li>Login without "Remember" → Close browser → Reopen → You should be logged out</li>
+        <li>Login with "Remember" → Close browser → Reopen → You should see "Welcome back"</li>
+        <li>Click "Logout (keep cookie)" → The cookie should remain</li>
+        <li>Click "Logout and forget me" → Both session and cookie should be cleared</li>
+    </ol>
     </p>
 
     <p class="output-label">Write your observations here:</p>
     <div class="output">
         <?php
         // TODO: After testing, write a comment explaining:
-        // 1. What is the session used for?
-        // 2. What is the cookie used for?
-        // 3. Why use both together?
+        echo "1. What is the session used for?<br/><br/>";
+        echo "To keep the user logged iin while the current session is still running, but they will not be remembered when logged out.<br/><br/>";
+        echo "2. What is the cookie used for?<br/><br/>";
+        echo "The cookie is used to make sure that the logged in user is remembered, even after their session has ended/they have left the site.<br/><br/>";
+        echo "3. Why use both together?<br/><br/>";
+        echo "To provide flixibility to the user, so their current session is remembered and even after they leave";
         ?>
     </div>
 
 </body>
+
 </html>
