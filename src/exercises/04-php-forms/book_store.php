@@ -31,7 +31,7 @@ try {
     // See: /examples/04-php-forms/step-01-form-submission/
     // =========================================================================
     // TODO: First, just dump the posted data to see what's submitted
-    dd($_POST);
+    // dd($_POST);
 
     // =========================================================================
     // STEP 2: Check Request Method
@@ -43,7 +43,7 @@ try {
             throw new Exception(('Invalid request method'));
         }
 
-        dd($_POST);
+        // dd($_POST);
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
@@ -75,7 +75,7 @@ try {
             'cover' => $_POST['cover'] ?? null
         ];
 
-        dd($data);
+        // dd($data);
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
@@ -89,6 +89,8 @@ try {
     // Create validator and check if validation fails; if so, store the first 
     // error for each field in the $errors array and throw an exception
 
+    $errors = [];
+
     try {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             throw new Exception('Invalid request method');
@@ -101,30 +103,40 @@ try {
             'isbn' => $_POST['isbn'] ?? null,
             'format_ids' => $_POST['format_ids'] ?? [],
             'description' => $_POST['description'] ?? null,
-            'cover' => $_POST['cover'] ?? null
+            'cover' => $_FILES['cover'] ?? null
         ];
 
         $rules = [
             'title' => 'required|notempty|min:3|max:255',
             'author' => 'required|notempty|min:3|max:255',
             'publisher_id' => 'required|integer',
-            'year' => 'required|integer|digits:4|between:1900,2026',
-            'isbn' => 'required|notempty|digits:13|',
+            'year' => 'required|integer|min:4|max:4|minvalue:1900|maxvalue:2026',
+            'isbn' => 'required|notempty|min:13|max:13|',
             'description' => 'required|notempty',
-            'cover' => 'required|file|image|max:2048',
+            'cover' => 'required|file|image|mimes:jpg,jpeg,png|max:2048',
             'format_ids' => 'required|array|integer'
         ];
 
         $validator = new Validator($data, $rules);
 
         if ($validator->fails()) {
-            dd($validator->errors(), true);
+            foreach ($validator->errors() as $field => $fieldErrors) {
+                $errors[$field] = $fieldErrors[0];
+            }
+            throw new Exception("Validation failed.");
         }
 
-        echo "Validation passed!";
-        dd($data);
+        clearFormData();
+        clearFormErrors();
+
+        setFlashMessage('success', 'Product created successfully!');
+        redirect('success.php');
+        
     } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+        setFlashMessage('error', 'Error: ' . $e->getMessage());
+        setFormErrors($errors);
+        setFormData($data);
+        redirect('book_create.php');
     }
 
     // =========================================================================
