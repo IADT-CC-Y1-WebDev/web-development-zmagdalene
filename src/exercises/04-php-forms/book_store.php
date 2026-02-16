@@ -110,11 +110,11 @@ try {
             'title' => 'required|notempty|min:3|max:255',
             'author' => 'required|notempty|min:3|max:255',
             'publisher_id' => 'required|integer',
-            'year' => 'required|integer|min:4|max:4|minvalue:1900|maxvalue:2026',
+            'year' => 'required|integer|minvalue:1900|maxvalue:2026',
             'isbn' => 'required|notempty|min:13|max:13|',
             'description' => 'required|notempty',
-            'cover' => 'required|file|image|mimes:jpg,jpeg,png|max:2048',
-            'format_ids' => 'required|array|integer'
+            'cover' => 'required|file|image|mimes:jpg,jpeg,png|max_file_size:2097152',
+            'format_ids' => 'required|array|min:1'
         ];
 
         $validator = new Validator($data, $rules);
@@ -126,12 +126,14 @@ try {
             throw new Exception("Validation failed.");
         }
 
+        $uploader = new ImageUpload();
+        $imageFilename = $uploader->process($_FILES['cover']);
+
         clearFormData();
         clearFormErrors();
 
         setFlashMessage('success', 'Product created successfully!');
-        redirect('success.php');
-        
+        redirect('book_create.php');
     } catch (Exception $e) {
         setFlashMessage('error', 'Error: ' . $e->getMessage());
         setFormErrors($errors);
@@ -178,13 +180,11 @@ try {
     // TODO: In the catch block, store validation errors in the session
     // TODO: Redirect back to the form
 
-
     // =========================================================================
     // STEP 6: Store Form Data for Repopulation
     // See: /examples/04-php-forms/step-06-repopulate-fields/
     // =========================================================================
     // TODO: Before redirecting on error, also store the form data
-
 
     // =========================================================================
     // STEP 8: Flash Messages

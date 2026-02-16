@@ -199,13 +199,18 @@ $formats = [
                 -->
                 <?php foreach ($formats as $format): ?>
                     <label class="checkbox-label">
-                        <input type="checkbox" name="format_ids[]" value="<?= $format['id'] ?>">
+                        <input type="checkbox" name="format_ids[]" value="<?= $format['id'] ?>"
+                            <?= chosen('format_ids', $format['id']) ? 'checked' : '' ?>>
                         <?= h($format['name']) ?>
                     </label>
                 <?php endforeach; ?>
             </div>
 
             <!-- TODO: Display error message if formats validation fails     -->
+
+            <?php if (error('format_ids')): ?>
+                <p class="error"><?= error('format_ids') ?></p>
+            <?php endif; ?>
 
         </div>
 
@@ -215,9 +220,13 @@ $formats = [
         <div class="form-group">
             <label for="description">Description:</label>
             <!-- TODO: Repopulate description field                          -->
-            <textarea id="description" name="description" rows="5"></textarea>
+            <textarea id="description" name="description" rows="5"><?= h(old('description')) ?></textarea>
 
             <!-- TODO: Display error message if description validation fails -->
+
+            <?php if (error('description')): ?>
+                <p class="error"><?= error('description') ?></p>
+            <?php endif; ?>
 
         </div>
 
@@ -231,7 +240,9 @@ $formats = [
             <input type="file" id="cover" name="cover" accept="image/*">
 
             <!-- TODO: Display error message if cover validation fails       -->
-
+            <?php if (error('cover')): ?>
+                <p class="error"><?= error('cover') ?></p>
+            <?php endif; ?>
         </div>
 
         <!-- =============================================================== -->
@@ -249,6 +260,8 @@ $formats = [
     <!-- TODO: Clear form data and errors after displaying the page          -->
     <?php
     //   Clear form data and errors
+    clearFormData();
+    clearFormErrors();
     ?>
 </body>
 
