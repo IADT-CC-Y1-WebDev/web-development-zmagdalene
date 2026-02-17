@@ -3,10 +3,12 @@ require_once __DIR__ . '/lib/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php include __DIR__ . '/inc/head_content.php'; ?>
     <title>Exercise 7: Database Singleton - PHP Database</title>
 </head>
+
 <body>
     <div class="container">
         <div class="back-link">
@@ -35,8 +37,31 @@ require_once __DIR__ . '/lib/config.php';
             // 3. Display the count
             // 4. Get DB::getInstance() twice and compare with ===
             // 5. Display whether they are the same instance
+            $inst1 = DB::getInstance();
+            $inst2 = DB::getInstance();
+
+            if ($inst1 === $inst2) {
+                echo "Same Instance, Singleton works!<br>";
+            }
+
+            $db1 = $inst1->getConnection();
+            $db2 = $inst2->getConnection();
+
+            if ($db1 === $db2) {
+                echo "Same PDO Connection, Singleton works!";
+            }
+
+            $stmt1 = $db1->prepare("SELECT COUNT(*) as total FROM books");
+            $stmt2 = $db2->prepare("SELECT COUNT(*) as total FROM books");
+            $stmt1->execute();
+            $stmt2->execute();
+            $books1 = $stmt1->fetch();
+            $books2 = $stmt2->fetch();
+            echo "<p>Database 1 Total: " . $books1['total'] . "<br>Database 2 Total: " . $books2['total'] . "</p>";
+
             ?>
         </div>
     </div>
 </body>
+
 </html>

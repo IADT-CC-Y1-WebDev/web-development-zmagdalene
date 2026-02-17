@@ -5,8 +5,7 @@ require_once __DIR__ . '/lib/config.php';
 // =============================================================================
 try {
     $db = new PDO(DB_DSN, DB_USER, DB_PASS, DB_OPTIONS);
-} 
-catch (PDOException $e) {
+} catch (PDOException $e) {
     echo "<p class='error'>Connection failed: " . $e->getMessage() . "</p>";
     exit();
 }
@@ -14,10 +13,12 @@ catch (PDOException $e) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php include __DIR__ . '/inc/head_content.php'; ?>
     <title>Exercise 5: UPDATE Operations - PHP Database</title>
 </head>
+
 <body>
     <div class="container">
         <div class="back-link">
@@ -47,8 +48,51 @@ catch (PDOException $e) {
             // 3. Execute with new description + timestamp
             // 4. Check rowCount()
             // 5. Fetch and display updated book
+            $id = 1;
+
+            $stmt = $db->prepare("SELECT * FROM books WHERE id = :id");
+            $stmt->execute(['id' => $id]);
+            $books = $stmt->fetchAll();
+            echo "Found " . count($books) . " book(s) where ID = " . $id;
+            ?>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Year</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($books as $book): ?>
+                        <tr>
+                            <td><?= $book['id'] ?></td>
+                            <td><?= htmlspecialchars($book['title']) ?></td>
+                            <td><?= htmlspecialchars($book['author']) ?></td>
+                            <td><?= $book['year'] ?></td>
+                            <td><?= htmlspecialchars($book['description']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+
+            </table>
+
+            <?php
+    $newDescription = "Updated Description at: " . date('Y-m-d H:i:s');
+
+            $stmt = $db->prepare("UPDATE books SET description = :description WHERE id = :id");
+            $stmt->execute([
+                'description' => $newDescription,
+                'id' => $id
+            ]);
+            echo "<p>Updated <strong>Description</strong> in " . $stmt->rowCount() . " rows!</p>";
             ?>
         </div>
     </div>
 </body>
+
 </html>

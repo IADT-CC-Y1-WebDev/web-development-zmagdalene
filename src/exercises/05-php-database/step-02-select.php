@@ -59,7 +59,7 @@ try {
             echo "<p>Found " . count($books) . " books</p>";
             ?>
             <table class="data-table">
-                <thread>
+                <thead>
 
                     <tr>
                         <th>ID</th>
@@ -67,7 +67,7 @@ try {
                         <th>Author</th>
                         <th>Year</th>
                     </tr>
-                </thread>
+                </thead>
                 <tbody>
                     <?php
                     foreach ($books as $book): ?>
