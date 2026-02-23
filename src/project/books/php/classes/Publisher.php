@@ -49,60 +49,69 @@ class Publisher
         return null;
     }
 
-    public function save()
-    {
-        $stmt = $this->db->prepare("INSERT INTO publishers (name) VALUES (:name)");
+    //     public function save()
+    //     {
+    //         $stmt = $this->db->prepare("INSERT INTO publishers (name) VALUES (:name)");
 
-        $params = [
-            'name' => $this->name,
+    //         $params = [
+    //             'name' => $this->name,
+    //         ];
+
+    //         $status = $stmt->execute($params);
+
+    //         if (!$status) {
+    //             $error_info = $stmt->errorInfo();
+    //             $message = sprintf(
+    //                 "SQLSTATE error code: %d error message: %s",
+    //                 $error_info[0],
+    //                 $error_info[2]
+    //             );
+    //             throw new Exception($message);
+    //         }
+
+    //         if ($stmt->rowCount() !== 1) {
+    //             throw new Exception("Failed to save publisher.");
+    //         }
+
+
+    //         if ($this->id === null) {
+    //             $this->id = $this->db->lastInsertId();
+    //         }
+    //     }
+
+    //     public function update()
+    //     {
+    //         $stmt = $this->db->prepare("UPDATE publishers
+    //         SET 
+    //         name = :name
+
+    //         WHERE id = :id
+    //         ");
+
+    //         $params = [
+    //             'name' => $this->name,
+    //             'id' => $this->id
+    //         ];
+
+    //         $stmt->execute($params);
+    //     }
+
+    //     public function delete()
+    //     {
+    //         if (!$this->id) {
+    //             return false;
+    //         }
+
+    //         $stmt = $this->db->prepare("DELETE * FROM publishers WHERE id = :id");
+    //         $stmt->execute(['id' => $this->id]);
+    //     }
+
+    // Convert to array for JSON output
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name
         ];
-
-        $status = $stmt->execute($params);
-
-        if (!$status) {
-            $error_info = $stmt->errorInfo();
-            $message = sprintf(
-                "SQLSTATE error code: %d error message: %s",
-                $error_info[0],
-                $error_info[2]
-            );
-            throw new Exception($message);
-        }
-
-        if ($stmt->rowCount() !== 1) {
-            throw new Exception("Failed to save publisher.");
-        }
-
-
-        if ($this->id === null) {
-            $this->id = $this->db->lastInsertId();
-        }
-    }
-
-    public function update()
-    {
-        $stmt = $this->db->prepare("UPDATE publishers
-        SET 
-        name = :name
-
-        WHERE id = :id
-        ");
-
-        $params = [
-            'name' => $this->name,
-            'id' => $this->id
-        ];
-
-        $stmt->execute($params);
-    }
-
-    public function delete()
-    {
-        if (!$this->id) {
-            return false;
-        }
-
-        $stmt = $this->db->prepare("DELETE * FROM publishers WHERE id = :id");
-        $stmt->execute(['id' => $this->id]);
     }
 }

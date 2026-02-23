@@ -1,0 +1,70 @@
+<?php
+
+require_once 'php/lib/config.php';
+require_once 'php/lib/utils.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !array_key_exists('id', $_GET)) {
+    die("<p>Error: No book ID provided.</p>");
+}
+$id = $_GET['id'];
+
+try {
+    $book = Book::findById($id);
+    if ($book === null) {
+        die("<p>Error: Book not found.</p>");
+    }
+
+    $publisher = Publisher::findById($book->publisher_id);
+    $formats = Format::findByBook($book->id);
+
+    $formatNames = [];
+
+    foreach ($formats as $format) {
+        $formatNames[] = h($format->name);
+    }
+} catch (PDOException $e) {
+    setFlashMessage('error', 'Error: ' . $e->getMessage());
+    redirect('/book_list.php');
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <?php include 'php/inc/head_content.php'; ?>
+    <title>View Book</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="width-12 header">
+            <?php require 'php/inc/flash_message.php'; ?>
+        </div>
+    </div>
+    <div class="container">
+        <div class="width-12">
+            <div class="hCard">
+                <div class="bottom-content">
+                    <img src="Images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
+
+                    <div class="actions">
+                        <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
+                        <a href="book_delete.php?id=<?= h($book->id) ?>">Delete</a>
+                        <a href="book_list.php">Back</a>
+                    </div>
+                </div>
+
+                <div class="bottom-content">
+                    <h2><?= h($book->title) ?></h2>
+                    <p>Author: <?= h($book->author) ?></p>
+                    <p>Publisher: <?= h($publisher->name) ?></p>
+                    <p>Publishing Year: <?= h($book->year) ?></p>
+                    <p>ISBN: <?= h($book->isbn) ?></p>
+                    <p>Description:<br /><?= nl2br(h($book->description)) ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

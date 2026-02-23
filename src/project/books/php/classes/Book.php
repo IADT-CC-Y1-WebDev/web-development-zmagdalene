@@ -60,6 +60,42 @@ class Book
         return null;
     }
 
+    // Find books by publisher
+    public static function findByPublisher($publisherId)
+    {
+        $db = DB::getInstance()->getConnection();
+        $stmt = $db->prepare("SELECT * FROM books WHERE publisher_id = :publisher_id ORDER BY title");
+        $stmt->execute(['publisher_id' => $publisherId]);
+
+        $books = [];
+        while ($row = $stmt->fetch()) {
+            $books[] = new Book($row);
+        }
+
+        return $books;
+    }
+
+    // Find books by format (requires JOIN with BookFormats table)
+    public static function findByFormat($formatId)
+    {
+        $db = DB::getInstance()->getConnection();
+        $stmt = $db->prepare("
+            SELECT f.*
+            FROM books f
+            INNER JOIN Book_format bf ON f.id = bf.book_id
+            WHERE bf.format_id = :format_id
+            ORDER BY f.title
+        ");
+        $stmt->execute(['format_id' => $formatId]);
+
+        $books = [];
+        while ($row = $stmt->fetch()) {
+            $books[] = new Book($row);
+        }
+
+        return $books;
+    }
+
     public function save()
     {
         $stmt = $this->db->prepare("INSERT INTO books (title, author, publisher_id, year, isbn, description, cover_filename) VALUES (:title, :author, :publisher_id, :year, :isbn, :description, :cover_filename)");
@@ -132,5 +168,20 @@ class Book
 
         $stmt = $this->db->prepare("DELETE * FROM books WHERE id = :id");
         $stmt->execute(['id' => $this->id]);
+    }
+
+
+    public function toArray()
+    {
+        return [
+            'title' => $this->title,
+            'author' => $this->author,
+            'publisher_id' => $this->publisher_id,
+            'year' => $this->year,
+            'isbn' => $this->isbn,
+            'description' => $this->description,
+            'cover_filename' => $this->cover_filename,
+            'id' => $this->id
+        ];
     }
 }

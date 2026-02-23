@@ -1,5 +1,7 @@
 <?php
 require_once 'php/lib/config.php';
+require_once 'php/lib/utils.php';
+
 echo "php works!";
 
 $books = Book::findAll();
