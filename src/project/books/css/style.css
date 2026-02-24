@@ -173,8 +173,9 @@ form {
 }
 
 .input {
-	display: flex;
 	gap: 20px;
+	display: flex;
+	flex-flow: column wrap;
 }
 
 .input p {
@@ -184,10 +185,31 @@ form {
 }
 
 .input label.special {
-	width: 108px;
+	width: fit-content;
 	display: flex;
 	justify-content: flex-end;
 	color: #252525;
 	font-weight: 900;
 }
 
+.input input[type="text"],
+.input input[type="number"],
+.input input[type="email"],
+.input input[type="password"],
+.input input[type="file"],
+.input select,
+.input textarea {
+	width: 100%;
+	max-width: 400px;
+	padding: 0.5rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 1rem;
+}
+
+.buttons {
+	width: 400px;
+	gap: 20px;
+	display: flex;
+	justify-content: space-between;
+}

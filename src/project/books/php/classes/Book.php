@@ -140,7 +140,7 @@ class Book
         publisher_id = :publisher_id,
         year = :year,
         isbn = :isbn,
-        description = : description,
+        description = :description,
         cover_filename = :cover_filename
 
         WHERE id = :id
@@ -166,7 +166,7 @@ class Book
             return false;
         }
 
-        $stmt = $this->db->prepare("DELETE * FROM books WHERE id = :id");
+        $stmt = $this->db->prepare("DELETE FROM books WHERE id = :id");
         $stmt->execute(['id' => $this->id]);
     }
 

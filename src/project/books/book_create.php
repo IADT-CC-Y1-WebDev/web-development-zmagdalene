@@ -51,10 +51,10 @@ try {
                 <div class="input">
                     <label for="publisher_id" class="special">Publisher:</label>
                     <div>
-                        <select id="publisher_id" name="publisher_ids" required>
+                        <select id="publisher_id" name="publisher_id" required>
                             <option value="">--- Select Publishers ---</option>
                             <?php foreach ($publishers as $publisher) { ?>
-                                <option value="<?= h($publisher->id) ?>" <?= chosen('publisher_ids', $publisher->id) ? "selected" : "" ?>>
+                                <option value="<?= h($publisher->id) ?>" <?= chosen('publisher_id', $publisher->id) ? "selected" : "" ?>>
                                     <?= h($publisher->name) ?>
                                 </option>
                             <?php } ?>
@@ -95,7 +95,7 @@ try {
 
                 <div class="input">
                     <label for="description" class="special">Description:</label>
-                    <textarea name="description" id="description" rows="5" <?= h(old('description')) ?> required></textarea>
+                    <textarea name="description" id="description" rows="5" required><?= h(old('description')) ?></textarea>
                 </div>
 
                 <div class="input">
@@ -106,9 +106,9 @@ try {
                     </div>
                 </div>
 
-                <div class="input">
-                    <button class="button" type="submit">Store Book</button>
+                <div class="buttons">
                     <button class="button"><a href="book_list.php">Cancel</a></button>
+                    <button class="button" type="submit">Store Book</button>
                 </div>
             </form>
         </div>
