@@ -23,7 +23,7 @@ try {
         <div class="width-12 header">
             <?php require 'php/inc/flash_message.php' ?>
             <div class="button">
-                <a href="book_create.php"></a>Add New Book
+                <a href="book_create.php">Add New Book</a>
             </div>
         </div>
         <?php if (!empty($books)) { ?>
