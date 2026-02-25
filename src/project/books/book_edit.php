@@ -125,7 +125,7 @@ try {
                         <div class="input">
                             <label for="cover_filename" class="special">Book Cover Image (optional):</label>
                             <div>
-                                <input type="file" name="cover_filename" id="cover_filename" accept="image/*" required>
+                                <input type="file" name="cover_filename" id="cover_filename" accept="image/*">
                                 <p><?= error('cover_filename') ?></p>
                             </div>
                         </div>
