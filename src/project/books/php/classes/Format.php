@@ -38,13 +38,7 @@ class Format
     {
         $db = DB::getInstance()->getConnection();
 
-        $stmt = $db->prepare("
-            SELECT f.*
-            FROM formats f
-            INNER JOIN book_format bf ON f.id = bf.format_id
-            WHERE bf.book_id = :book_id
-            ORDER BY f.name
-        ");
+        $stmt = $db->prepare("SELECT * FROM formats WHERE id = :id");
         $stmt->execute(['id' => $id]);
 
         $row = $stmt->fetch();

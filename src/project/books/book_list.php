@@ -22,7 +22,9 @@ try {
     <div class="container">
         <div class="width-12 header">
             <?php require 'php/inc/flash_message.php' ?>
-            <div class="button">
+        </div>
+        <div class="width-12 header">
+            <div class="button push-right">
                 <a href="book_create.php">Add New Book</a>
             </div>
         </div>

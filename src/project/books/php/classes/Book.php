@@ -82,7 +82,7 @@ class Book
         $stmt = $db->prepare("
             SELECT f.*
             FROM books f
-            INNER JOIN Book_format bf ON f.id = bf.book_id
+            INNER JOIN book_format bf ON f.id = bf.book_id
             WHERE bf.format_id = :format_id
             ORDER BY f.title
         ");

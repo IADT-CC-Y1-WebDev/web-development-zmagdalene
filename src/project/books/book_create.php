@@ -91,11 +91,15 @@ try {
                             </div>
                         <?php } ?>
                     </div>
+                    <p><?= error('format_ids') ?></p>
                 </div>
 
                 <div class="input">
                     <label for="description" class="special">Description:</label>
                     <textarea name="description" id="description" rows="5" required><?= h(old('description')) ?></textarea>
+                    <?php if (error('description')): ?>
+                        <p><?= error('description') ?></p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="input">
@@ -116,3 +120,8 @@ try {
 </body>
 
 </html>
+<?php
+// Clear form data after displaying
+clearFormData();
+// Clear errors after displaying
+clearFormErrors(); ?>
