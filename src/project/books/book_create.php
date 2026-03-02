@@ -7,7 +7,6 @@ require_once 'php/lib/utils.php';
 startSession();
 
 try {
-    $book = new Book;
     $publishers = Publisher::findAll();
     $formats = Format::findAll();
 } catch (PDOException $e) {
@@ -107,10 +106,10 @@ try {
                         </div>
 
                         <div class="input">
-                            <label for="cover_filename" class="special">Book Cover Image:</label>
+                            <label for="cover" class="special">Book Cover Image:</label>
                             <div>
-                                <input type="file" name="cover_filename" id="cover_filename" accept="image/*" value ="" required>
-                                <p><?= error('cover_filename') ?></p>
+                                <input type="file" name="cover" id="cover" accept="image/*" value="" required>
+                                <p><?= error('cover') ?></p>
                             </div>
                         </div>
 
@@ -119,31 +118,6 @@ try {
                             <button class="button" type="submit">Store Book</button>
                         </div>
                     </form>
-                </div>
-
-                <div class="width-7 preview">
-                    <h2>Preview</h2>
-                    <div class="hCard">
-
-                        <div class="bottom-content">
-                            <img src="Images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
-
-                            <div class="actions">
-                                <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
-                                <a href="book_delete.php?id=<?= h($book->id) ?>">Delete</a>
-                                <a href="book_list.php">Back</a>
-                            </div>
-                        </div>
-
-                        <div class="bottom-content">
-                            <h2><?= h($book->title) ?></h2>
-                            <p>Author: <?= h($book->author) ?></p>
-                            <p>Publisher: <?= h($publisher->name) ?></p>
-                            <p>Publishing Year: <?= h($book->year) ?></p>
-                            <p>ISBN: <?= h($book->isbn) ?></p>
-                            <p>Description:<br /><?= nl2br(h($book->description)) ?></p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

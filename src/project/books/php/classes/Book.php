@@ -136,7 +136,6 @@ class Book
                 'isbn' => $this->isbn,
                 'description' => $this->description,
                 'cover_filename' => $this->cover_filename,
-                'id' => $this->id
             ];
         }
         // Execute statement

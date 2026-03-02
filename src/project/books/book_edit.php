@@ -6,29 +6,31 @@ require_once 'php/lib/utils.php';
 
 startSession();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !array_key_exists('id', $_GET)) {
-    die("<p>Error: No book ID provided.</p>");
-}
-$id = $_GET['id'];
-
 try {
+    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+        throw new Exception('Invalid request method.');
+    }
+    if (!array_key_exists('id', $_GET)) {
+        throw new Exception('No book ID provided.');
+    }
+    $id = $_GET['id'];
+
     $book = Book::findById($id);
     if ($book === null) {
-        die("<p>Error: Book not found.</p>");
+        throw new Exception("Book not found.");
     }
 
-    $publisher = Publisher::findById($book->publisher_id);
     $formats = Format::findByBook($book->id);
     $formatIds = [];
     foreach ($formats as $format) {
-        $formatIds[] = h($format->id);
+        $formatIds[] = $format->id;
     }
 
     $publishers = Publisher::findAll();
     $formats = Format::findAll();
 } catch (PDOException $e) {
     setFlashMessage('error', 'Error: ' . $e->getMessage());
-    redirect('/book_list.php');
+    redirect('/index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -51,7 +53,7 @@ try {
             <div class="container">
 
                 <div class="width-5">
-                    <form action="book_store.php" method="POST" enctype="multipart/form-data">
+                    <form action="book_update.php" method="POST" enctype="multipart/form-data">
                         <div class="input">
                             <label for="title" class="special">Title:</label>
                             <div>
@@ -123,10 +125,10 @@ try {
                         </div>
 
                         <div class="input">
-                            <label for="cover_filename" class="special">Book Cover Image (optional):</label>
+                            <label for="cover" class="special">Book Cover Image (optional):</label>
                             <div>
-                                <input type="file" name="cover_filename" id="cover_filename" accept="image/*">
-                                <p><?= error('cover_filename') ?></p>
+                                <input type="file" name="cover" id="cover" accept="image/*" value="<?= h(old('cover')) ?>">
+                                <p><?= error('cover') ?></p>
                             </div>
                         </div>
 
@@ -142,7 +144,7 @@ try {
                     <div class="hCard">
 
                         <div class="bottom-content">
-                            <img src="Images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
+                            <img src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
 
                             <div class="actions">
                                 <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>

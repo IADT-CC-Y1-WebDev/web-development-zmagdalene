@@ -24,9 +24,9 @@ try {
         'publisher_id' => $_POST['publisher_id'] ?? null,
         'year' => $_POST['year'] ?? null,
         'isbn' => $_POST['isbn'] ?? null,
-        'format_ids' => $_POST['format_ids'] ?? [],
         'description' => $_POST['description'] ?? null,
-        'cover' => $_FILES['cover_filename'] ?? null
+        'format_ids' => $_POST['format_ids'] ?? [],
+        'cover' => $_FILES['cover'] ?? null
     ];
 
     // Define validation rules
@@ -37,8 +37,8 @@ try {
         'year' => 'required|integer',
         'isbn' => 'required|notempty|min:13|max:13|',
         'description' => 'required|notempty|min:15',
+        'format_ids' => 'required|array|min:1',
         'cover' => 'required|file|image|mimes:jpg,jpeg,png|max_file_size:5242880',
-        'format_ids' => 'required|array|min:1'
     ];
 
     // Validate all data (including file)
@@ -62,7 +62,7 @@ try {
 
     // Process the uploaded image (validation already completed)
     $uploader = new ImageUpload();
-    $imageFilename = $uploader->process($_FILES['cover_filename']);
+    $imageFilename = $uploader->process($_FILES['cover']);
 
     if (!$imageFilename) {
         throw new Exception('Failed to process and save the image.');

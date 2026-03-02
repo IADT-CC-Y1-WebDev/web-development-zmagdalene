@@ -75,7 +75,7 @@ try {
                             <p>Author: <?= h($book->author) ?></p>
                         </div>
                         <div class="bottomContent">
-                            <img src="Images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
+                            <img src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
                             <div class="actions">
                                 <a href="book_view.php?id=<?= h($book->id) ?>">View</a>
                                 <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>

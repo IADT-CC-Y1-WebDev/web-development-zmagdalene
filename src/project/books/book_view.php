@@ -45,7 +45,7 @@ try {
         <div class="width-12">
             <div class="hCard">
                 <div class="bottom-content">
-                    <img src="Images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
+                    <img src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
 
                     <div class="actions">
                         <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>

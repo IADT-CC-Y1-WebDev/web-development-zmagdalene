@@ -252,13 +252,17 @@ form {
 	justify-content: center;
 }
 
-.content .preview h2 {
-	text-align: end;
-}
-
 .content .hCard {
 	width: 100%;
 	display: flex;
 	justify-self: flex-end;
 	align-self: flex-end;
+}
+
+.content .preview h2 {
+	text-align: end;
+}
+
+.content .preview .hCard .bottom-content h2 {
+	text-align: start;
 }
