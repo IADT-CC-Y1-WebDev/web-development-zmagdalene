@@ -2,19 +2,8 @@
 require_once 'php/lib/config.php';
 require_once 'php/lib/utils.php';
 
-echo "php works!";
-
 $books = Book::findAll();
-
-foreach ($books as $book) {
-    echo $book->title . "<br>";
-}
-
 $publishers = Publisher::findAll();
-
-foreach ($publishers as $publisher) {
-    echo $publisher->name . "<br>";
-}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +22,7 @@ foreach ($publishers as $publisher) {
     </div>
 
     <div class="container">
-        <div class="button">Add New Game</div>
+        <p><a href="book_list.php">Books</a></p>    
     </div>
 
 </body>

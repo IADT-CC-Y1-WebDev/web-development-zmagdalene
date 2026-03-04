@@ -6,6 +6,9 @@ require_once 'php/lib/utils.php';
 
 startSession();
 
+$errors = getFormErrors();
+dd($errors);
+
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         throw new Exception('Invalid request method.');
@@ -54,6 +57,7 @@ try {
 
                 <div class="width-5">
                     <form action="book_update.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" id="id" name="id" value="<?= old('id', $book->id) ?>">
                         <div class="input">
                             <label for="title" class="special">Title:</label>
                             <div>
@@ -127,7 +131,7 @@ try {
                         <div class="input">
                             <label for="cover" class="special">Book Cover Image (optional):</label>
                             <div>
-                                <input type="file" name="cover" id="cover" accept="image/*" value="<?= h(old('cover')) ?>">
+                                <input type="file" name="cover" id="cover" accept="image/*" />
                                 <p><?= error('cover') ?></p>
                             </div>
                         </div>

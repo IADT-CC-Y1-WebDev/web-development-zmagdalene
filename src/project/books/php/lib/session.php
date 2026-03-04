@@ -21,14 +21,20 @@ function getFlashMessage()
     return $flash;
 }
 
-function setFormData($data)
-{
+function setFormData($data) {
     $_SESSION["form-data"] = $data;
 }
 
-function setFormErrors($errors)
-{
+function getFormData() {
+    return $_SESSION["form-data"] ?? [];
+}
+
+function setFormErrors($errors) {
     $_SESSION["form-errors"] = $errors;
+}
+
+function getFormErrors() {
+    return $_SESSION["form-errors"] ?? [];
 }
 
 function clearFormData()
