@@ -1,15 +1,15 @@
 import Feline from "./Feline.js";
 
-class Cat extends Feline {
+class Lion extends Feline {
 
     constructor(_name, _age) {
         super(_name, _age);
     }
 
     makeNoise() {
-        console.log("Meowing: Meeaaaoooowwwww")
+        console.log("Roaring: Rooaaarrrr!")
     }
 
 }
 
-export default Cat;
+export default Lion;
