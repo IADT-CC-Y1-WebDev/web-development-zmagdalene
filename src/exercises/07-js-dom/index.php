@@ -20,7 +20,17 @@
     See slides for instructions. Put your solutions in the <code>exercises/07-js-dom/</code> folder.
   </p>
 
+  <input type="text" id="myInput">
 
+  <button id="myButton">Click me to add a p tag!</button>
+  <button id="myButton2">Click me to add a p tag2!</button>
+
+  <input type="text" id="my_input">
+  <button id="my_button">Click Me!</button>
+
+  <div id="output"></div>
+
+  <script src="app.js" charset="utf-8"></script>
 </body>
 
 </html>

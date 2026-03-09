@@ -34,7 +34,7 @@ try {
             <div class="container">
 
                 <div class="width-5">
-                    <form action="book_store.php" method="POST" enctype="multipart/form-data">
+                    <form action="book_store.php" method="POST" enctype="multipart/form-data" novalidate>
                         <div class="input">
                             <label for="title" class="special">Title:</label>
                             <div>

@@ -6,6 +6,18 @@ class BankAccount {
         this.balance = bal;
     }
 
+    getBalance() {
+        return this.balance;
+    }
+
+    deposit(amount) {
+        this.balance += amount;
+    }
+
+    withdraw(amount) {
+        this.balance -= amount;
+    }
+
     toString() {
         return `
         Account: ${this.number}

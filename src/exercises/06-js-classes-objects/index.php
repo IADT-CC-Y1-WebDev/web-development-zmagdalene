@@ -23,9 +23,7 @@
   <h2>0. JavaScript</h2>
   <p id="output"></p>
 
-  <script src="script0.js" charset="utf-8"></script>
-  <script src="script1.js" charset="utf-8"></script>
-  <script src="script2.js" charset="utf-8"></script>
+  <script src="script.js" charset="utf-8"></script>
 </body>
 
 </html>

@@ -8,12 +8,12 @@ class SavingsAccount extends BankAccount {
     }
 
     toString() {
-        rate = this.interestRate * 100;
+        let rate = this.interestRate * 100;
         return `
-        Savings Account: ${this.num}
+        Savings Account: ${this.number}
         Name: ${this.name}
         Balance: €${this.balance}
-        Interest Rate: ${this.interestRate}%
+        Interest Rate: ${rate}%
         `;
     }
 }

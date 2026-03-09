@@ -157,7 +157,7 @@ $platforms = ['PC', 'PS5', 'Xbox', 'Nintendo Switch'];
         <?php endforeach; ?>
     </div>
 
-    <script src="02-games-filters.js"></script>
+    <script src="02-sample-games-filters.js"></script>
 </body>
 
 </html>
