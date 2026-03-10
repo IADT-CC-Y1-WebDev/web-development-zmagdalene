@@ -6,6 +6,12 @@ try {
     $books = Book::findAll();
     $publishers = Publisher::findAll();
     $formats = Format::findAll();
+
+    $bookFormats = [];
+    foreach ($books as $book) {
+        $bookFormats = Format::findByBook($book->id);
+        $bookFormatsMap[$book->id] = h(implode(',', array_map(fn($f) => $f->id, $bookFormats)));
+    }
 } catch (PDOException $e) {
     die("<p>PDO Exception: " . $e->getMessage() . "</p>");
 }
@@ -30,13 +36,17 @@ try {
         </div>
         <?php if (!empty($books)) { ?>
             <div class="width-12 filters">
-                <form>
+                <form id="filters">
+
                     <div>
-                        <label for="title_filter">Title:</label>
+                        <label for="title_filter" class="filter-label">Title:</label>
+
                         <input type="text" id="title_filter" name="title_filter">
                     </div>
+
                     <div>
-                        <label for="publisher_filter">Publisher:</label>
+                        <label for="publisher_filter" class="filter-label">Publisher:</label>
+
                         <select name="publisher_filter" id="publisher_filter">
                             <option value="">All Publishers</option>
                             <?php foreach ($publishers as $publisher) { ?>
@@ -44,8 +54,10 @@ try {
                             <?php } ?>
                         </select>
                     </div>
+
                     <div>
-                        <label for="format_filter">Format:</label>
+                        <label for="format_filter" class="filter-label">Format:</label>
+
                         <select name="format_filter" id="format_filter">
                             <option value="">All Formats</option>
                             <?php foreach ($formats as $format) { ?>
@@ -53,10 +65,23 @@ try {
                             <?php } ?>
                         </select>
                     </div>
+
+                    <div>
+                        <label class="filter-label" for="sort_by">Sort:</label>
+
+                        <select id="sort_by" name="sort_by">
+                            <option value="title_asc">Title A–Z</option>
+                            <option value="year_desc">Year (newest first)</option>
+                            <option value="year_asc">Year (oldest first)</option>
+                        </select>
+
+                    </div>
+
                     <div>
                         <button type="button" id="apply_filters">Apply Filters</button>
                         <button type="button" id="clear_filters">Clear Filters</button>
                     </div>
+
                 </form>
             </div>
 
@@ -67,11 +92,15 @@ try {
         <?php if (empty($books)) { ?>
             <p>No Books Found.</p>
         <?php } else { ?>
-            <div class="width-12 cards">
+            <div id="book_cards" class="width-12 cards">
                 <?php foreach ($books as $book) { ?>
-                    <div class="card">
+                    <div class="card"
+                        data-title="<?= h($book->title) ?>"
+                        data-publisher="<?= h($book->publisher_id) ?>"
+                        data-format="<?= h($bookFormatsMap[$book->id]) ?>"
+                        data-year="<?= h($book->year) ?>">
                         <div class="topContent">
-                            <h2>Title: <?= h($book->title) ?></h2>
+                            <h2><?= h($book->title) ?></h2>
                             <p>Author: <?= h($book->author) ?></p>
                         </div>
                         <div class="bottomContent">
@@ -88,6 +117,8 @@ try {
         <?php } ?>
     </div>
 
+    <script src="js/book-filters.js"></script>
+    <script src="js/click-toggle.js"></script>
 </body>
 
 </html>

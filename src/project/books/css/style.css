@@ -125,7 +125,6 @@ body {
 	display: flex;
 	gap: 20px;
 	flex-direction: row;
-	justify-content: space-between;
 }
 
 .hCard h2 {
@@ -252,11 +251,8 @@ form {
 	justify-content: center;
 }
 
-.content .hCard {
+.preview .hCard {
 	width: 100%;
-	display: flex;
-	justify-self: flex-end;
-	align-self: flex-end;
 }
 
 .content .preview h2 {
@@ -265,4 +261,8 @@ form {
 
 .content .preview .hCard .bottom-content h2 {
 	text-align: start;
+}
+
+.hidden {
+	display: none;
 }

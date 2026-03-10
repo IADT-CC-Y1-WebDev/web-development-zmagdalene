@@ -61,6 +61,7 @@ try {
                     <p>Publishing Year: <?= h($book->year) ?></p>
                     <p>ISBN: <?= h($book->isbn) ?></p>
                     <p>Description:<br /><?= nl2br(h($book->description)) ?></p>
+                    <p>Formats: <?= implode(', ', $formatNames) ?></p>
                 </div>
             </div>
         </div>
