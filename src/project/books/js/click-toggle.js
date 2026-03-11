@@ -1,22 +1,28 @@
 // 08-3: Event delegation on cards
-const cardsContainer = document.getElementById('book_cards');
 
-function toggleCardHighlight(card) {
-    card.classList.toggle('selected');
-}
+cardsContainer.addEventListener('click', (e) => {
+    const card = e.target.closest('.card');
+    const link = e.target.closest('a');
+    const title = e.target.closest('.card h2');
 
-function handleCardsClick(event) {
-    const card = event.target.closest('.card');
-    if (!card) {
+    if (!card || !link) return;
+
+    card.classList.add('highlight')
+
+
+    if (link.classList.contains("delete")) {
+        if (!confirm("Are you sure you want to delete this book?")) {
+            e.preventDefault();
+            card.classList.remove('highlight');
+            return;
+        }
         return;
     }
 
-    const action = event.target.dataset.action;
-    if (action === 'select') {
-        toggleCardHighlight(card);
-    } else if (action === 'log') {
-        logCardTitle(card);
-    }
-}
+    e.preventDefault();
 
-cardsContainer.addEventListener('click', handleCardsClick);
+    setTimeout(() => {
+        card.classList.remove('highlight');
+        window.location.href = link.href;
+    }, 300)
+});

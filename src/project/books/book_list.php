@@ -106,9 +106,9 @@ try {
                         <div class="bottomContent">
                             <img src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
                             <div class="actions">
-                                <a href="book_view.php?id=<?= h($book->id) ?>">View</a>
-                                <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
-                                <a href="book_delete.php?id=<?= h($book->id) ?>">Delete</a>
+                                <a class="view" href="book_view.php?id=<?= h($book->id) ?>">View</a>
+                                <a class="edit" href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
+                                <a class="delete" href="book_delete.php?id=<?= h($book->id) ?>">Delete</a>
                             </div>
                         </div>
                     </div>
