@@ -104,6 +104,7 @@ body {
 	color: #ececec;
 	border: 1px solid #4bff3c;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 .header {
@@ -119,6 +120,7 @@ body {
 	color: #ececec;
 	border: 1px solid #4bff3c;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 .hCard {
@@ -243,6 +245,29 @@ form {
 	background-color: #f8d7da;
 	border-color: #f5c6cb;
 	color: #721c24;
+}
+
+.error-summary {
+	border-radius: 6px;
+	border: 1px solid #b00020;
+	background: #fff5f5;
+	padding: 0.75rem 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.error-summary ul {
+	display: block;
+	list-style-type: disc;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	padding-inline-start: 40px;
+	unicode-bidi: isolate;
+}
+
+.error-summary li {
+	list-style-type: inherit;
+	display: list-item;
+	unicode-bidi: isolate;
 }
 
 .content {

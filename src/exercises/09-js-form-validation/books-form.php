@@ -168,7 +168,7 @@
             <div class="format-options">
                 <?php foreach ($formats as $f): ?>
                     <div>
-                        <input type="checkbox" id="format_<?= (int) $f['id'] ?>" name="format_ids[]" value="<?= (int) $f['id'] ?>">
+                        <input type="checkbox" id="format_ids<?= (int) $f['id'] ?>" name="format_ids[]" value="<?= (int) $f['id'] ?>">
                         <label for="format_<?= (int) $f['id'] ?>"><?= htmlspecialchars($f['name']) ?></label>
                     </div>
                 <?php endforeach; ?>
@@ -187,7 +187,7 @@
         <div class="form-group">
             <label class="form-label"></label>
             <div>
-                <button id="submit_btn" type="submit">Store Game</button>
+                <button id="submit_btn" type="submit">Store Book</button>
             </div>
         </div>
     </form>

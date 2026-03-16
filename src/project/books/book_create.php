@@ -34,20 +34,23 @@ try {
             <div class="container">
 
                 <div class="width-5">
-                    <form action="book_store.php" method="POST" enctype="multipart/form-data" novalidate>
+                    <form id="book_form" action="book_store.php" method="POST" enctype="multipart/form-data" data-mode="create" novalidate>
+
+                        <div id="error_summary_top" class="error-summary" style="display:none" role="alert"></div>
+
                         <div class="input">
                             <label for="title" class="special">Title:</label>
                             <div>
-                                <input type="text" id="title" name="title" value="<?= old('title') ?>" required>
-                                <p><?= error('title') ?></p>
+                                <input type="text" id="title" name="title" value="<?= h(old('title')) ?>" data-minlength="3" data-maxlength="255" required>
+                                <p class="error" id="title_error"><?= error('title') ?></p>
                             </div>
                         </div>
 
                         <div class="input">
                             <label for="author" class="special">Author:</label>
                             <div>
-                                <input type="text" id="author" name="author" value="<?= old('author') ?>" required>
-                                <p><?= error('author') ?></p>
+                                <input type="text" id="author" name="author" value="<?= h(old('author')) ?>" data-minlength="3" data-maxlength="255" required>
+                                <p class="error" id="author_error"><?= error('author') ?></p>
                             </div>
                         </div>
 
@@ -62,21 +65,21 @@ try {
                                         </option>
                                     <?php } ?>
                                 </select>
-                                <p><?= error('publisher_id') ?></p>
+                                <p class="error" id="publisher_id_error"><?= error('publisher_id') ?></p>
                             </div>
                         </div>
 
                         <div class="input">
                             <label for="year" class="special">Year:</label>
-                            <input type="text" id="year" name="year" value="<?= old('year') ?>" required>
-                            <p><?= error('year') ?></p>
+                            <input type="text" id="year" name="year" value="<?= h(old('year')) ?>" data-length="4" required>
+                            <p class="error" id="year_error"><?= error('year') ?></p>
                         </div>
 
                         <div class="input">
                             <label for="isbn" class="special">ISBN:</label>
                             <div>
-                                <input type="text" name="isbn" id="isbn" value="<?= old('isbn') ?>" required>
-                                <p><?= error('isbn') ?></p>
+                                <input type="text" name="isbn" id="isbn" value="<?= h(old('isbn')) ?>" data-length="13" required>
+                                <p class="error" id="isbn_error"><?= error('isbn') ?></p>
                             </div>
                         </div>
 
@@ -94,34 +97,33 @@ try {
                                     </div>
                                 <?php } ?>
                             </div>
-                            <p><?= error('format_ids') ?></p>
+                            <p class="error" id="format_ids_error"><?= error('format_ids') ?></p>
                         </div>
 
                         <div class="input">
                             <label for="description" class="special">Description:</label>
-                            <textarea name="description" id="description" rows="5" required><?= h(old('description')) ?></textarea>
-                            <?php if (error('description')): ?>
-                                <p><?= error('description') ?></p>
-                            <?php endif; ?>
+                            <textarea name="description" id="description" rows="5" data-minlength="15" required><?= h(old('description')) ?></textarea>
+                            <p class="error" id="description_error"><?= error('description') ?></p>
                         </div>
 
                         <div class="input">
                             <label for="cover" class="special">Book Cover Image:</label>
                             <div>
                                 <input type="file" name="cover" id="cover" accept="image/*" value="" required>
-                                <p><?= error('cover') ?></p>
+                                <p class="error" id="cover_error"><?= error('cover') ?></p>
                             </div>
                         </div>
 
                         <div class="buttons">
                             <button class="button"><a href="book_list.php">Cancel</a></button>
-                            <button class="button" type="submit">Store Book</button>
+                            <button id="submit_btn" class="button" type="submit">Store Book</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script src="js/books-form.js"></script>
 </body>
 
 </html>

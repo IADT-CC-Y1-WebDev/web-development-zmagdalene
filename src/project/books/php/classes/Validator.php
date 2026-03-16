@@ -1,19 +1,22 @@
 <?php
 
-class Validator {
+class Validator
+{
     private $data;
     private $rules;
     private $errors = [];
     private $customMessages = [];
 
-    public function __construct($data, $rules, $customMessages = []) {
+    public function __construct($data, $rules, $customMessages = [])
+    {
         $this->data = $data;
         $this->rules = $rules;
         $this->customMessages = $customMessages;
         $this->validate();
     }
 
-    private function validate() {
+    private function validate()
+    {
         foreach ($this->rules as $field => $ruleString) {
             $rules = $this->parseRules($ruleString);
             $value = $this->getValue($field);
@@ -24,7 +27,8 @@ class Validator {
         }
     }
 
-    private function parseRules($ruleString) {
+    private function parseRules($ruleString)
+    {
         if (is_array($ruleString)) {
             return $ruleString;
         }
@@ -45,11 +49,13 @@ class Validator {
         return $rules;
     }
 
-    private function getValue($field) {
+    private function getValue($field)
+    {
         return isset($this->data[$field]) ? $this->data[$field] : null;
     }
 
-    private function applyRule($field, $value, $rule) {
+    private function applyRule($field, $value, $rule)
+    {
         $ruleName = $rule['name'];
         $ruleValue = $rule['value'];
 
@@ -111,25 +117,29 @@ class Validator {
         }
     }
 
-    private function validateRequired($field, $value) {
+    private function validateRequired($field, $value)
+    {
         if ($value === null || $value === '' || (is_array($value) && empty($value))) {
             $this->addError($field, "The $field field is required.");
         }
     }
 
-    private function validateNotEmpty($field, $value) {
+    private function validateNotEmpty($field, $value)
+    {
         if ($value === '' || (is_array($value) && empty($value))) {
             $this->addError($field, "The $field field must not be empty.");
         }
     }
 
-    private function validateArray($field, $value) {
+    private function validateArray($field, $value)
+    {
         if ($value !== null && $value !== '' && !is_array($value)) {
             $this->addError($field, "The $field must be an array.");
         }
     }
 
-    private function validateMin($field, $value, $min) {
+    private function validateMin($field, $value, $min)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -145,9 +155,14 @@ class Validator {
         }
     }
 
-    private function validateMax($field, $value, $max) {
+    private function validateMax($field, $value, $max)
+    {
         if ($value === null || $value === '') {
             return;
+        }
+
+        if ($field === 'isbn') {
+            $value = str_replace('-', '', $value);
         }
 
         $length = is_array($value) ? count($value) : mb_strlen($value);
@@ -161,7 +176,8 @@ class Validator {
         }
     }
 
-    private function validateEmail($field, $value) {
+    private function validateEmail($field, $value)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -180,7 +196,8 @@ class Validator {
         }
     }
 
-    private function validateFloat($field, $value) {
+    private function validateFloat($field, $value)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -199,7 +216,8 @@ class Validator {
         }
     }
 
-    private function validateInteger($field, $value) {
+    private function validateInteger($field, $value)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -218,7 +236,8 @@ class Validator {
         }
     }
 
-    private function validateMinValue($field, $value, $min) {
+    private function validateMinValue($field, $value, $min)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -246,7 +265,8 @@ class Validator {
         }
     }
 
-    private function validateMaxValue($field, $value, $max) {
+    private function validateMaxValue($field, $value, $max)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -274,7 +294,8 @@ class Validator {
         }
     }
 
-    private function validateBoolean($field, $value) {
+    private function validateBoolean($field, $value)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -295,7 +316,8 @@ class Validator {
         }
     }
 
-    private function validateRegex($field, $value, $pattern) {
+    private function validateRegex($field, $value, $pattern)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -314,7 +336,8 @@ class Validator {
         }
     }
 
-    private function validateIn($field, $value, $allowedValues) {
+    private function validateIn($field, $value, $allowedValues)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -338,7 +361,8 @@ class Validator {
         }
     }
 
-    private function validateSubset($field, $value, $allowedValues) {
+    private function validateSubset($field, $value, $allowedValues)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -360,7 +384,8 @@ class Validator {
         }
     }
 
-    private function validateFile($field, $value) {
+    private function validateFile($field, $value)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -377,7 +402,8 @@ class Validator {
         }
     }
 
-    private function validateMimes($field, $value, $allowedMimes) {
+    private function validateMimes($field, $value, $allowedMimes)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -428,7 +454,8 @@ class Validator {
         }
     }
 
-    private function validateMaxFileSize($field, $value, $maxSize) {
+    private function validateMaxFileSize($field, $value, $maxSize)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -449,7 +476,8 @@ class Validator {
         }
     }
 
-    private function validateImage($field, $value) {
+    private function validateImage($field, $value)
+    {
         if ($value === null || $value === '') {
             return;
         }
@@ -471,7 +499,8 @@ class Validator {
         }
     }
 
-    private function getUploadErrorMessage($errorCode) {
+    private function getUploadErrorMessage($errorCode)
+    {
         switch ($errorCode) {
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
@@ -489,7 +518,8 @@ class Validator {
         }
     }
 
-    private function addError($field, $message) {
+    private function addError($field, $message)
+    {
         if (isset($this->customMessages[$field])) {
             $message = $this->customMessages[$field];
         }
@@ -501,19 +531,23 @@ class Validator {
         $this->errors[$field][] = $message;
     }
 
-    public function fails() {
+    public function fails()
+    {
         return !empty($this->errors);
     }
 
-    public function passes() {
+    public function passes()
+    {
         return empty($this->errors);
     }
 
-    public function errors() {
+    public function errors()
+    {
         return $this->errors;
     }
 
-    public function firstError($field = null) {
+    public function firstError($field = null)
+    {
         if ($field) {
             return isset($this->errors[$field]) ? $this->errors[$field][0] : null;
         }
@@ -525,7 +559,8 @@ class Validator {
         return null;
     }
 
-    public function allErrors() {
+    public function allErrors()
+    {
         $allErrors = [];
         foreach ($this->errors as $fieldErrors) {
             $allErrors = array_merge($allErrors, $fieldErrors);

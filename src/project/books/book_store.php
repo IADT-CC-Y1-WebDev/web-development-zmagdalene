@@ -35,7 +35,7 @@ try {
         'author' => 'required|notempty|min:3|max:255',
         'publisher_id' => 'required|integer',
         'year' => 'required|integer',
-        'isbn' => 'required|notempty|min:13|max:13|',
+        'isbn' => 'required|notempty|min:13|max:13',
         'description' => 'required|notempty|min:15',
         'format_ids' => 'required|array|min:1',
         'cover' => 'required|file|image|mimes:jpg,jpeg,png|max_file_size:5242880',

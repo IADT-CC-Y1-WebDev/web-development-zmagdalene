@@ -4,19 +4,21 @@ let errorSummaryTop = document.getElementById('error_summary_top');
 
 let titleInput = document.getElementById('title');
 let authorInput = document.getElementById('author');
-let yearInput = document.getElementById('year');
 let publisherIdInput = document.getElementById('publisher_id');
-let descriptionInput = document.getElementById('description');
+let yearInput = document.getElementById('year');
+let isbnInput = document.getElementById('isbn');
 let formatIdsInput = document.getElementsByName('format_ids[]');
-let imageInput = document.getElementById('image');
+let descriptionInput = document.getElementById('description');
+let coverInput = document.getElementById('cover');
 
 let titleError = document.getElementById('title_error');
 let authorError = document.getElementById('author_error');
-let yearError = document.getElementById('year_error');
 let publisherIdError = document.getElementById('publisher_id_error');
-let descriptionError = document.getElementById('description_error');
+let yearError = document.getElementById('year_error');
+let isbnError = document.getElementById('isbn_error');
 let formatIdsError = document.getElementById('format_ids_error');
-let imageError = document.getElementById('image_error');
+let descriptionError = document.getElementById('description_error');
+let coverError = document.getElementById('cover_error');
 
 let errors = {};
 
@@ -44,11 +46,12 @@ function showErrorSummaryTop() {
 function showFieldErrors() {
     titleError.innerHTML = errors.title || '';
     authorError.innerHTML = errors.author || '';
-    yearError.innerHTML = errors.year || '';
     publisherIdError.innerHTML = errors.publisherId || '';
-    descriptionError.innerHTML = errors.description || '';
+    yearError.innerHTML = errors.year || '';
+    isbnError.innerHTML = errors.isbn || '';
     formatIdsError.innerHTML = errors.formatIds || '';
-    imageError.innerHTML = errors.image || '';
+    descriptionError.innerHTML = errors.description || '';
+    coverError.innerHTML = errors.cover || '';
 }
 
 function isRequired(input) {
@@ -62,12 +65,21 @@ function isString(input) {
 
 function isInteger(input) {
     const pattern = /^[0-9]+$/;
+    const digitsOnly = input.value.trim().replace(/-/g, '');
+
+    if (input === isbnInput) {
+        return pattern.test(digitsOnly);
+    }
     return pattern.test(input.value.trim());
 }
 
-function isIsbn(input) {
-    const pattern = /^[0-9\-]+$/;
-    return pattern.test(input.value.trim());
+function isLength(input, len) {
+    const digitsOnly = input.value.trim().replace(/-/g, '');
+
+    if (input === isbnInput) {
+        return digitsOnly.length === len;
+    }
+    return String(input.value).trim().length === len;
 }
 
 function isMinlength(input, min) {
@@ -97,55 +109,73 @@ function onSubmitForm(e) {
     const titleMax = titleInput.dataset.maxlength || 255;
     const authorMin = authorInput.dataset.minlength || 3;
     const authorMax = authorInput.dataset.maxlength || 255;
-    const yearMin = yearInput.dataset.minlength || 4;
-    const yearMax = yearInput.dataset.minlength || 4;
+    const yearLen = parseInt(yearInput.dataset.length) || 4;
+    const isbnLen = parseInt(isbnInput.dataset.length) || 13;
     const descriptionMin = descriptionInput.dataset.minlength || 15;
+    const formDataMode = bookForm.dataset.mode;
 
     if (!isRequired(titleInput)) {
-        addError("title", "Title is required");
+        addError("title", "Title is required.");
     } else if (!isMinlength(titleInput, titleMin)) {
-        addError("title", "Title must be at least 3 characters");
+        addError("title", "Title must be at least " + titleMin + " characters.");
     } else if (!isMaxLength(titleInput, titleMax)) {
-        addError("title", "Title must not exceed 255 characters");
+        addError("title", "Title must not exceed " + titleMax + " characters.");
     }
+
     if (!isRequired(authorInput)) {
         addError("author", "Author is required");
     } else if (!isString(authorInput)) {
-        addError("author", "Author must comprise of letters A-Z");
+        addError("author", "Author must comprise of letters A-Z.");
     } else if (!isMinlength(authorInput, authorMin)) {
-        addError("author", "Author must be at least 3 characters");
+        addError("author", "Author must be at least " + authorMin + " characters.");
     } else if (!isMaxLength(authorInput, authorMax)) {
-        addError("author", "Author must not exceed 255 characters");
-    }
-    if (!isRequired(yearInput)) {
-        addError("year", "Year is required");
-    } else if (!isInteger(yearInput)) {
-        addError("year", "Year must be an integer");
-    } else if (!isMinlength(yearInput, yearMin)) {
-        addError("year", "Year must be 4 characters");
-    } else if (!isMaxLength(yearInput, yearMax)) {
-        addError("year", "Year be 4 characters");
-    }
-    if (!isRequired(publisherIdInput)) {
-        addError("publisherId", "Publisher is required");
-    }
-    if (!isRequired(descriptionInput)) {
-        addError("description", "Description is required");
-    } else if (!isMinlength(descriptionInput, descriptionMin)) {
-        addError("description", "Description must be at least 15 characters");
-    }
-    if (!isChecked(formatIdsInput)) {
-        addError("formatIds", "At least one format(s) must be selected");
+        addError("author", "Author must not exceed " + authorMax + " characters.");
     }
 
-    if (!imageInput.files || imageInput.files.length === 0) {
-        addError("image", "Image is required");
+    if (!isRequired(yearInput)) {
+        addError("year", "Year is required.");
+    } else if (!isInteger(yearInput)) {
+        addError("year", "Year must be an integer.");
+    } else if (!isLength(yearInput, yearLen)) {
+        addError("year", "Year must be " + yearLen + " characters.");
+    }
+
+    if (!isRequired(isbnInput)) {
+        addError("isbn", "ISBN is required.");
+    } else if (!isInteger(isbnInput)) {
+        addError("isbn", "  ISBN must be an integer.");
+    } else if (!isLength(isbnInput, isbnLen)) {
+        addError("isbn", "ISBN must be " + isbnLen + " characters.");
+    }
+
+    if (!isRequired(publisherIdInput)) {
+        addError("publisherId", "Publisher is required.");
+    }
+
+    if (!isRequired(descriptionInput)) {
+        addError("description", "Description is required.");
+    } else if (!isMinlength(descriptionInput, descriptionMin)) {
+        addError("description", "Description must be at least " + descriptionMin + " characters.");
+    }
+
+    if (!isChecked(formatIdsInput)) {
+        addError("formatIds", "At least one format must be selected.");
+    }
+
+    if (formDataMode === "create") {
+
+        if (!coverInput.files || coverInput.files.length === 0) {
+            addError("cover", "Book Cover Image is required.");
+        }
+    } else if (formDataMode === "edit") {
+
+        if (coverInput.files && coverInput.files.length > 0) {}
     }
 
     showErrorSummaryTop();
     showFieldErrors();
 
     if (Object.keys(errors).length === 0) {
-        alert('Book Stored Successfully!');
+        bookForm.submit();
     }
 }

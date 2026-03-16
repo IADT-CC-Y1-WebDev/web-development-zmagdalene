@@ -116,7 +116,6 @@ try {
             </div>
         <?php } ?>
     </div>
-
     <script src="js/book-filters.js"></script>
     <script src="js/click-toggle.js"></script>
 </body>
