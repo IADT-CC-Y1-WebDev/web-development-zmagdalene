@@ -31,9 +31,7 @@ try {
             <h1>Add New Book</h1>
         </div>
         <div class="width-12 content">
-            <div class="container">
 
-                <div class="width-5">
                     <form id="book_form" action="book_store.php" method="POST" enctype="multipart/form-data" data-mode="create" novalidate>
 
                         <div id="error_summary_top" class="error-summary" style="display:none" role="alert"></div>
@@ -119,8 +117,6 @@ try {
                             <button id="submit_btn" class="button" type="submit">Store Book</button>
                         </div>
                     </form>
-                </div>
-            </div>
         </div>
     </div>
     <script src="js/books-form.js"></script>

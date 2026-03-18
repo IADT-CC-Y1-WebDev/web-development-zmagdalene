@@ -25,10 +25,29 @@ try {
 </head>
 
 <body>
+    <?php if (empty($books)) { ?>
+        <p>No Books Found.</p>
+    <?php } else { ?>
+        <div id="overlay">
+            <div class="deletePopup">
+
+                <h2>Are you sure you want to delete this book?</h2>
+                <h2 class="bookTitle"> <?= $book->title ?> </h2>
+                <p>This action is permanent and cannot be undone.</p>
+
+                <div class="buttons">
+                    <button type="button" id="confirmBtn" class="largeBtn">Delete Book</button>
+                    <button type="button" id="cancelBtn" class="largeBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
     <div class="container">
         <div class="width-12 header">
             <?php require 'php/inc/flash_message.php' ?>
         </div>
+
         <div class="width-12 header">
             <div class="button push-right">
                 <a href="book_create.php">Add New Book</a>

@@ -44,7 +44,7 @@ try {
     <div class="container">
         <div class="width-12">
             <div class="hCard">
-                <div class="bottom-content">
+                <div class="right-content">
                     <img src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
 
                     <div class="actions">
@@ -54,14 +54,14 @@ try {
                     </div>
                 </div>
 
-                <div class="bottom-content">
+                <div class="left-content">
                     <h2><?= h($book->title) ?></h2>
                     <p>Author: <?= h($book->author) ?></p>
                     <p>Publisher: <?= h($publisher->name) ?></p>
                     <p>Publishing Year: <?= h($book->year) ?></p>
                     <p>ISBN: <?= h($book->isbn) ?></p>
                     <p>Description:<br /><?= nl2br(h($book->description)) ?></p>
-                    <p>Formats: <?= implode(', ', $formatNames) ?></p>
+                    <p>Formats: <?= h(implode(', ', $formatNames)) ?></p>
                 </div>
             </div>
         </div>

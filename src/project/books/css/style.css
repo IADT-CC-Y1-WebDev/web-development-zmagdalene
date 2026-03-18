@@ -21,6 +21,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	word-wrap: break-word;
 }
 
 .card.highlight {
@@ -133,6 +134,15 @@ body {
 	display: flex;
 	gap: 20px;
 	flex-direction: row;
+	overflow-wrap: anywhere;
+}
+
+.hCard .right-content {
+	flex: 1;
+}
+
+.hCard .left-content {
+	flex: 2;
 }
 
 .hCard h2 {
@@ -216,8 +226,6 @@ form {
 }
 
 .buttons {
-	width: 400px;
-	gap: 20px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -272,7 +280,6 @@ form {
 
 .content {
 	display: flex;
-	justify-content: space-between;
 }
 
 .content .preview {
@@ -286,14 +293,59 @@ form {
 	width: 100%;
 }
 
-.content .preview h2 {
-	text-align: end;
-}
-
-.content .preview .hCard .bottom-content h2 {
-	text-align: start;
-}
-
 .hidden {
 	display: none;
+}
+
+.flex {
+	display: flex;
+}
+
+#overlay {
+	background-color: rgba(55, 55, 55, 0.7);
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	justify-content: center;
+	align-items: center;
+}
+
+.deletePopup {
+	background-color: #eeeeee;
+	border-radius: 6px;
+	padding: 20px;
+	width: 500px;
+	height: 195px;
+	text-align: center;
+	display: flex;
+	justify-content: space-between;
+	flex-flow: column wrap;
+}
+
+.deletePopup h2 {
+	font-size: 23px;
+	line-height: normal;
+}
+
+.bookTitle {
+	font-family: "IBM Plex Serif";
+	font-weight: 300;
+	color: #016040;
+}
+
+.deletePopup p {
+	color: #b00020;
+}
+
+.largeBtn {
+	border: 1px solid;
+	border-radius: 6px;
+	width: 48%;
+	height: 35px;
+	cursor: pointer;
+}
+
+#confirmBtn {
+	background-color: #b00020;
+	color: #eeeeee;
 }
