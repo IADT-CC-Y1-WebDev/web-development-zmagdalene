@@ -38,7 +38,7 @@ try {
 
     $formatNames = [];
 
-    foreach ($formats as $format) {
+    foreach ($prevFormats as $format) {
         $formatNames[] = h($format->name);
     }
 } catch (PDOException $e) {
@@ -161,7 +161,7 @@ try {
                     <div class="hCard">
 
                         <div class="right-content">
-                            <img src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
+                            <img id="coverPreview" src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
 
                             <div class="actions">
                                 <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
@@ -171,19 +171,23 @@ try {
                         </div>
 
                         <div class="left-content">
-                            <h2><?= h(old('title', $book->title)) ?></h2>
-                            <p class="author">Author: <?= h(old('author', $book->author)) ?></p>
-                            <p class="publisher_id">Publisher: <?= h(old('publisher', $prevPublisher->name)) ?></p>
-                            <p class="year">Publishing Year: <?= h(old('year', $book->year)) ?></p>
-                            <p class="isbn">ISBN: <?= h(old('isbn', $book->isbn)) ?></p>
-                            <p class="description">Description:<br /><?= nl2br(h(old('description', $book->description))) ?></p>
-                            <p class="format_ids">Formats: <?= h(implode(', ', $formatNames)) ?></p>
+                            <h2 id="titlePreview"><?= h(old('title', $book->title)) ?></h2>
+                            <p id="authorPreview">Author: <?= h(old('author', $book->author)) ?></p>
+                            <p id="publisherPreview">Publisher: <?= h(old('publisher', $prevPublisher->name)) ?></p>
+                            <p id="yearPreview">Publishing Year: <?= h(old('year', $book->year)) ?></p>
+                            <p id="isbnPreview">ISBN: <?= h(old('isbn', $book->isbn)) ?></p>
+                            <p id="descriptionPreview">Description:<br /><?= nl2br(h(old('description', $book->description))) ?></p>
+                            <p id="formatsPreview">Formats: <?= h(implode(', ', $formatNames)) ?></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        const formatMap = <?= !empty($$prevFormats) ? json_encode(array_column($prevFormats, 'name', 'id')) : '{}' ?>;
+        const publisherMap = <?= !empty($prevPublishers) ? json_encode(array_column($prevPublishers, 'name', 'id')) : '{}' ?>;
+    </script>
     <script src="js/books-form.js"></script>
     <script src="js/live-inputs.js"></script>
 </body>

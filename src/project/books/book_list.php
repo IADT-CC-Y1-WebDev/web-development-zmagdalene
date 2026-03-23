@@ -28,7 +28,7 @@ try {
     <?php if (empty($books)) { ?>
         <p>No Books Found.</p>
     <?php } else { ?>
-        <div id="overlay">
+        <div id="overlay" class="hidden">
             <div class="deletePopup">
 
                 <h2>Are you sure you want to delete this book?</h2>

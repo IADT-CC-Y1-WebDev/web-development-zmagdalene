@@ -7,7 +7,7 @@ let authorInput = document.getElementById('author');
 let publisherIdInput = document.getElementById('publisher_id');
 let yearInput = document.getElementById('year');
 let isbnInput = document.getElementById('isbn');
-let formatIdsInput = document.getElementsByName('format_ids[]');
+let formatIdsInput = Array.from(document.getElementsByName('format_ids[]'));
 let descriptionInput = document.getElementById('description');
 let coverInput = document.getElementById('cover');
 
@@ -169,7 +169,7 @@ function onSubmitForm(e) {
         }
     } else if (formDataMode === "edit") {
 
-        if (coverInput.files && coverInput.files.length > 0) {}
+        if (coverInput.files && coverInput.files.length > 0) { }
     }
 
     showErrorSummaryTop();

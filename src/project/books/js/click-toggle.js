@@ -4,7 +4,15 @@ const confirm = document.getElementById('confirmBtn');
 const cancel = document.getElementById('cancelBtn');
 const deleteLink = document.querySelector('a.delete');
 
-popup.classList.add('hidden');
+function visibility(element) {
+    element.classList.toggle('hidden');
+    element.classList.toggle('flex');
+
+}
+
+function highlight(element) {
+    element.classList.toggle('highlight')
+}
 
 cardsContainer.addEventListener('click', (e) => {
     const link = e.target.closest('a');
@@ -13,17 +21,15 @@ cardsContainer.addEventListener('click', (e) => {
 
     if (!card || !link) return;
 
-    card.classList.add('highlight');
-
+    highlight(card);
+    activeCard = card;
 
     if (link.classList.contains("delete")) {
         {
             e.preventDefault();
 
             setTimeout(() => {
-                popup.classList.remove('hidden');
-                popup.classList.add('flex');
-                card.classList.remove('highlight');
+                visibility(popup);
             }, 300)
             return;
         }
@@ -31,20 +37,18 @@ cardsContainer.addEventListener('click', (e) => {
     e.preventDefault();
 
     setTimeout(() => {
-        card.classList.remove('highlight');
+        highlight(card);
         window.location.href = link.href;
     }, 300)
 });
 
 confirm.addEventListener('click', () => {
     window.location.href = deleteLink.href;
-    // popup.classList.add('hidden');
-    // popup.classList.remove('flex');
     return;
 });
 
 cancel.addEventListener('click', () => {
-    popup.classList.add('hidden');
-    popup.classList.remove('flex');
+    highlight(activeCard);
+    visibility(popup);
     return;
 });

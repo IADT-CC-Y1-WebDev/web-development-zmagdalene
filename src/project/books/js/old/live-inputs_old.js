@@ -7,6 +7,17 @@ const formatsPreview = document.getElementById('formatsPreview');
 const descriptionPreview = document.getElementById('descriptionPreview');
 const coverPreview = document.getElementById('coverPreview');
 
+const formatMap = jscon_encode(array_column($prevFormats, 'name', 'id'));
+
+let inputs = [titleInput, authorInput, publisherIdInput, yearInput, isbnInput, formatIdsInput, descriptionInput, coverInput];
+
+let previews = [titlePreview, authorPreview, publisherPreview, yearPreview, isbnPreview, formatsPreview, descriptionPreview, coverPreview];
+
+titleInput.addEventListener('input', () => {
+    title.innerHTML = titleInput.value;
+    console.log(titleInput.value);
+});
+
 // let titleInput = document.getElementById('title');
 // let authorInput = document.getElementById('author');
 // let publisherIdInput = document.getElementById('publisher_id');
@@ -29,43 +40,41 @@ const coverPreview = document.getElementById('coverPreview');
 const textInput = document.getElementById('preview_input');
 const textPreview = document.getElementById('preview');
 
-function updatePreview(previewElement, text, prefix = '') {
+function updatePreview(previewElement, text, prefix) {
     const trimmed = text.trim();
 
     if (trimmed === '') {
-        previewElement.textContent = prefix + '(nothing yet)';
+        previewElement.textContent = '(nothing yet)';
         previewElement.classList.add('empty');
     } else {
-        previewElement.textContent = prefix + trimmed;
+        previewElement.textContent = trimmed;
         previewElement.classList.remove('empty');
     }
 }
 
-titleInput.addEventListener('input', (e) => {
-    updatePreview(titlePreview, e.target.value);
+inputs.forEach((input, index) => {
+    const preview = previews[index];
+
+    if (Array.isArray(input)) {
+        input.forEach(box => {
+            box.addEventListener('input', () => {
+                const values = input.filter(i => i.checked).map(i => formatMap[i.value]).join(', ');
+                updatePreview(preview, values);
+            })
+        })
+    } else {
+        input.addEventListener('input', e => updatePreview(preview, e.target.value));
+    }
 });
-authorInput.addEventListener('input', (e) => {
-    updatePreview(authorPreview, e.target.value, 'Author: ');
-});
-publisherIdInput.addEventListener('input', (e) => {
-    const name = publisherMap[e.target.value]
-    updatePreview(publisherPreview, name, 'Publisher: ');
-});
-yearInput.addEventListener('input', (e) => {
-    updatePreview(yearPreview, e.target.value, 'Year: ');
-});
-isbnInput.addEventListener('input', (e) => {
-    updatePreview(isbnPreview, e.target.value, 'ISBN: ');
-});
-formatIdsInput.forEach(box => {
-    box.addEventListener('input', () => {
-        const values = formatIdsInput.filter(i => i.checked).map(i => formatMap[i.value.toString()]).join(', ');
-        updatePreview(formatsPreview, values, 'Formats: ');
-    });
-});
-descriptionInput.addEventListener('input', (e) => {
-    updatePreview(descriptionPreview, e.target.value, 'Description: ');
-});
-coverInput.addEventListener('input', (e) => {
-    updatePreview(coverPreview, e.target.value);
-});
+
+// inputs.forEach(input => {
+//     input.addEventListener('input', (e) => {
+//         updatePreview(titlePreview, e.target.value);
+//         updatePreview(authorPreview, e.target.value);
+//         updatePreview(publisherPreview, e.target.value);
+//         updatePreview(yearPreview, e.target.value);
+//         updatePreview(isbnPreview, e.target.value);
+//         updatePreview(formatsPreview, e.target.value);
+//         updatePreview(coverPreview, e.target.value);
+//     });
+// })
