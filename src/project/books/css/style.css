@@ -52,6 +52,7 @@ body {
 
 .card .actions a:hover {
 	color: #2c22df;
+	cursor: pointer;
 }
 
 .card img {
@@ -167,10 +168,10 @@ body {
 
 .hCard .actions a:hover {
 	color: #2c22df;
+	cursor: pointer;
 }
 
 .hCard img {
-	width: 340px;
 	margin-bottom: 10px;
 	object-fit: cover;
 	border: 1px solid #7c75f1;
@@ -282,8 +283,9 @@ form {
 	display: flex;
 }
 
-.content .preview {
+.preview .content {
 	gap: 20px;
+	height: 100%;
 	display: flex;
 	flex-flow: column wrap;
 	justify-content: center;

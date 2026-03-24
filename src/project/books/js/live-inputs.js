@@ -31,10 +31,16 @@ const textPreview = document.getElementById('preview');
 
 function updatePreview(previewElement, text, prefix = '') {
     const trimmed = text.trim();
-    const content = trimmed === '' ? '(nothing yet)' : trimmed;
+    let content;
+
+    if (previewElement === titlePreview) {
+        content = trimmed === '' ? 'Title' : trimmed;
+    } else {
+        content = trimmed === '' ? '' : trimmed;
+    }
 
     previewElement.textContent = prefix + content;
-    previewElement.classList.toggle('empty', trimmed === '');
+    // previewElement.classList.toggle('empty', trimmed === '');
 }
 
 titleInput.addEventListener('input', (e) => {
@@ -48,7 +54,7 @@ publisherIdInput.addEventListener('input', (e) => {
     updatePreview(publisherPreview, name, 'Publisher: ');
 });
 yearInput.addEventListener('input', (e) => {
-    updatePreview(yearPreview, e.target.value, 'Year: ');
+    updatePreview(yearPreview, e.target.value, 'Publishing Year: ');
 });
 isbnInput.addEventListener('input', (e) => {
     updatePreview(isbnPreview, e.target.value, 'ISBN: ');
