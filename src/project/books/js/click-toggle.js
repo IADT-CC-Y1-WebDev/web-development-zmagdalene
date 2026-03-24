@@ -1,8 +1,11 @@
 // 08-3: Event delegation on cards
 const popup = document.getElementById('overlay');
+const cardsContainer = document.getElementById('book_cards');
 const confirm = document.getElementById('confirmBtn');
 const cancel = document.getElementById('cancelBtn');
-const deleteLink = document.querySelector('a.delete');
+const page = document.body.dataset.page;
+let activeCard;
+let deleteLink;
 
 function visibility(element) {
     element.classList.toggle('hidden');
@@ -11,13 +14,18 @@ function visibility(element) {
 }
 
 function highlight(element) {
-    element.classList.toggle('highlight')
+    element.classList.toggle('highlight');
 }
 
 cardsContainer.addEventListener('click', (e) => {
     const link = e.target.closest('a');
-    const title = e.target.closest('.card h2');
-    const card = e.target.closest('.card');
+    let card;
+
+    if (page === "book_list.php") {
+        card = e.target.closest('.card')
+    } else if (page === "book_view.php") {
+        card = e.target.closest('.hCard');
+    }
 
     if (!card || !link) return;
 
@@ -28,9 +36,15 @@ cardsContainer.addEventListener('click', (e) => {
         {
             e.preventDefault();
 
+            const bookId = link.dataset.bookId;
+            const bookTitle = link.dataset.bookTitle;
+            deleteLink = link;
+
             setTimeout(() => {
                 visibility(popup);
-            }, 300)
+            }, 300);
+
+            popup.querySelector('.bookTitle').textContent = bookTitle;
             return;
         }
     }
@@ -39,11 +53,14 @@ cardsContainer.addEventListener('click', (e) => {
     setTimeout(() => {
         highlight(card);
         window.location.href = link.href;
-    }, 300)
+    }, 300);
 });
 
 confirm.addEventListener('click', () => {
-    window.location.href = deleteLink.href;
+    if (!deleteLink) return;
+    setTimeout(() => {
+        window.location.href = deleteLink.href;
+    }, 300);
     return;
 });
 

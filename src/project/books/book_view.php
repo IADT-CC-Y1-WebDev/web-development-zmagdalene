@@ -35,22 +35,24 @@ try {
     <title>View Book</title>
 </head>
 
-<body>
+<body data-page="book_view.php">
+    <?php include 'php/inc/delete_popup.php' ?>
+
     <div class="container">
         <div class="width-12 header">
             <?php require 'php/inc/flash_message.php'; ?>
         </div>
     </div>
     <div class="container">
-        <div class="width-12">
+        <div class="width-12" id="book_cards">
             <div class="hCard">
                 <div class="right-content">
                     <img src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
 
                     <div class="actions">
-                        <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
-                        <a href="book_delete.php?id=<?= h($book->id) ?>">Delete</a>
-                        <a href="book_list.php">Back</a>
+                        <a class="edit" href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
+                        <a class="delete" href="book_delete.php?id=<?= h($book->id) ?>" data-book-id=<?= h($book->id) ?> data-book-title="<?= h($book->title) ?>">Delete</a>
+                        <a class="back" href="book_list.php">Back</a>
                     </div>
                 </div>
 
@@ -66,6 +68,8 @@ try {
             </div>
         </div>
     </div>
+
+    <script src="js/click-toggle.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,4 @@
 const form = document.getElementById('filters');
-const cardsContainer = document.getElementById('book_cards');
 const cards = Array.from(cardsContainer.querySelectorAll('.card'));
 
 function getFilters() {

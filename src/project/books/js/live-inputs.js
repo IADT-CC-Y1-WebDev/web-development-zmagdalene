@@ -31,14 +31,10 @@ const textPreview = document.getElementById('preview');
 
 function updatePreview(previewElement, text, prefix = '') {
     const trimmed = text.trim();
+    const content = trimmed === '' ? '(nothing yet)' : trimmed;
 
-    if (trimmed === '') {
-        previewElement.textContent = prefix + '(nothing yet)';
-        previewElement.classList.add('empty');
-    } else {
-        previewElement.textContent = prefix + trimmed;
-        previewElement.classList.remove('empty');
-    }
+    previewElement.textContent = prefix + content;
+    previewElement.classList.toggle('empty', trimmed === '');
 }
 
 titleInput.addEventListener('input', (e) => {
@@ -48,7 +44,7 @@ authorInput.addEventListener('input', (e) => {
     updatePreview(authorPreview, e.target.value, 'Author: ');
 });
 publisherIdInput.addEventListener('input', (e) => {
-    const name = publisherMap[e.target.value]
+    const name = publisherMap[e.target.value] || '';
     updatePreview(publisherPreview, name, 'Publisher: ');
 });
 yearInput.addEventListener('input', (e) => {
@@ -69,3 +65,11 @@ descriptionInput.addEventListener('input', (e) => {
 coverInput.addEventListener('input', (e) => {
     updatePreview(coverPreview, e.target.value);
 });
+
+coverInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = event => coverPreview.src = event.target.result;
+    reader.readAsDataURL(file);
+})

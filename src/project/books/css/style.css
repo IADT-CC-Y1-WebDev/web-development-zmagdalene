@@ -24,12 +24,6 @@ body {
 	word-wrap: break-word;
 }
 
-.card.highlight {
-	border-color: #0066cc;
-	box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
-	transition: 0.5ms;
-}
-
 .card h2 {
 	font-size: 28px;
 	line-height: 32px;
@@ -181,6 +175,12 @@ body {
 	object-fit: cover;
 	border: 1px solid #7c75f1;
 	height: 340px;
+}
+
+.highlight {
+	border-color: #0066cc;
+	box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+	transition: 0.5ms;
 }
 
 form {
@@ -343,9 +343,22 @@ form {
 	width: 48%;
 	height: 35px;
 	cursor: pointer;
+	transition: all ease-in-out 0.3s;
 }
 
 #confirmBtn {
 	background-color: #b00020;
 	color: #eeeeee;
+}
+
+#confirmBtn:hover {
+	background-color: #eeeeee;
+	color: #b00020;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+
+#cancelBtn:hover {
+	text-transform: uppercase;
+	font-weight: 500;
 }

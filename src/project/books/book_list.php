@@ -24,23 +24,11 @@ try {
     <title>View Books</title>
 </head>
 
-<body>
+<body data-page="book_list.php">
     <?php if (empty($books)) { ?>
         <p>No Books Found.</p>
-    <?php } else { ?>
-        <div id="overlay" class="hidden">
-            <div class="deletePopup">
-
-                <h2>Are you sure you want to delete this book?</h2>
-                <h2 class="bookTitle"> <?= $book->title ?> </h2>
-                <p>This action is permanent and cannot be undone.</p>
-
-                <div class="buttons">
-                    <button type="button" id="confirmBtn" class="largeBtn">Delete Book</button>
-                    <button type="button" id="cancelBtn" class="largeBtn">Cancel</button>
-                </div>
-            </div>
-        </div>
+    <?php } else {
+        include 'php/inc/delete_popup.php' ?>
     <?php } ?>
 
     <div class="container">
@@ -127,7 +115,7 @@ try {
                             <div class="actions">
                                 <a class="view" href="book_view.php?id=<?= h($book->id) ?>">View</a>
                                 <a class="edit" href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
-                                <a class="delete" href="book_delete.php?id=<?= h($book->id) ?>">Delete</a>
+                                <a class="delete" href="book_delete.php?id=<?= h($book->id) ?>" data-book-id=<?= h($book->id) ?> data-book-title="<?= h($book->title) ?>">Delete</a>
                             </div>
                         </div>
                     </div>
@@ -135,8 +123,9 @@ try {
             </div>
         <?php } ?>
     </div>
-    <script src="js/book-filters.js"></script>
+
     <script src="js/click-toggle.js"></script>
+    <script src="js/book-filters.js"></script>
 </body>
 
 </html>

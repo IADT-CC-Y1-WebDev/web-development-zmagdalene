@@ -185,8 +185,8 @@ try {
         </div>
     </div>
     <script>
-        const formatMap = <?= !empty($$prevFormats) ? json_encode(array_column($prevFormats, 'name', 'id')) : '{}' ?>;
-        const publisherMap = <?= !empty($prevPublishers) ? json_encode(array_column($prevPublishers, 'name', 'id')) : '{}' ?>;
+        const formatMap = <?= !empty($formats) ? json_encode(array_column($formats, 'name', 'id')) : '{}' ?>;
+        const publisherMap = <?= !empty($publishers) ? json_encode(array_column($publishers, 'name', 'id')) : '{}' ?>;
     </script>
     <script src="js/books-form.js"></script>
     <script src="js/live-inputs.js"></script>

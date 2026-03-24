@@ -7,7 +7,8 @@ const formatsPreview = document.getElementById('formatsPreview');
 const descriptionPreview = document.getElementById('descriptionPreview');
 const coverPreview = document.getElementById('coverPreview');
 
-const formatMap = jscon_encode(array_column($prevFormats, 'name', 'id'));
+const formatMap = json_encode(array_column($prevFormats, 'name', 'id'));
+const publisherMap = json_encode(array_column($prevPublishers, 'name', 'id'));
 
 let inputs = [titleInput, authorInput, publisherIdInput, yearInput, isbnInput, formatIdsInput, descriptionInput, coverInput];
 
