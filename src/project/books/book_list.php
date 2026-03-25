@@ -1,7 +1,7 @@
 <?php
-
 require_once 'php/lib/config.php';
 require_once 'php/lib/utils.php';
+
 try {
     $books = Book::findAll();
     $publishers = Publisher::findAll();
@@ -17,7 +17,7 @@ try {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo $_COOKIE['theme'] ?? 'light'; ?>">
 
 <head>
     <?php include 'php/inc/head_content.php' ?>
@@ -37,6 +37,34 @@ try {
         </div>
 
         <div class="width-12 header">
+            <div class="theme-selector">
+                <div class="head">
+                    <p>Try Me!</p>
+                </div>
+
+                <div class="themes">
+                    <div>
+                        <div id="light" class="theme" onclick="setTheme('light')"><i class="fa-regular fa-sun"></i></div>
+                        <p>light</p>
+                    </div>
+
+                    <div>
+                        <div id="dark" class="theme" onclick="setTheme('dark')"><i class="fa-regular fa-moon"></i></div>
+                        <p>dark</p>
+                    </div>
+
+                    <div>
+                        <div id="beige" class="theme" onclick="setTheme('beige')"><i class="fa-solid fa-book-open"></i></div>
+                        <p>beige</p>
+                    </div>
+
+                    <div>
+                        <div id="nature" class="theme" onclick="setTheme('nature')"><i class="fa-solid fa-leaf"></i></div>
+                        <p>nature</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="button push-right">
                 <a href="book_create.php">Add New Book</a>
             </div>
@@ -85,8 +113,8 @@ try {
                     </div>
 
                     <div>
-                        <button type="button" id="apply_filters">Apply Filters</button>
-                        <button type="button" id="clear_filters">Clear Filters</button>
+                        <button type="button" id="apply_filters" class="button">Apply Filters</button>
+                        <button type="button" id="clear_filters" class="button">Clear Filters</button>
                     </div>
 
                 </form>
@@ -126,6 +154,7 @@ try {
 
     <script src="js/click-toggle.js"></script>
     <script src="js/book-filters.js"></script>
+    <script src="js/theme-selector.js"></script>
 </body>
 
 </html>

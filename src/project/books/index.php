@@ -1,9 +1,6 @@
 <?php
 require_once 'php/lib/config.php';
 require_once 'php/lib/utils.php';
-
-$books = Book::findAll();
-$publishers = Publisher::findAll();
 ?>
 
 <!DOCTYPE html>
@@ -11,18 +8,23 @@ $publishers = Publisher::findAll();
 
 <head>
     <?php include 'php/inc/head_content.php' ?>
-    <title>View Books</title>
+    <title>Books Website</title>
 </head>
 
 <body>
     <div class="container">
-        <div class="width-12 header">
-
+        <div class="width-12">
+            <div class="welcomePage">
+                <div class="welcome">
+                    <h1>Welcome To My Books Website!</h1>
+                </div>
+                <div class="click">
+                    <a href="book_list.php">
+                        <p>Click Here To Proceed</p>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="container">
-        <p><a href="book_list.php">Books</a></p>    
     </div>
 
 </body>

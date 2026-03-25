@@ -1,9 +1,162 @@
+:root[data-theme="light"] {
+	--bg: #ffffff;
+	--title: #8c86ff;
+	--txt: #252525;
+	--card: #f4f4f4;
+	--card-border: #bcbcbc;
+	--img-border: #7c75f1;
+	--btn: #8c86ff;
+	--btn-txt: #ffffff;
+	--a: #b0acfa;
+	--select: #2c22df;
+}
+
+:root[data-theme="dark"] {
+	--bg: #252525;
+	--title: #b0acfa;
+	--txt: #ffffff;
+	--card: #151515;
+	--card-border: #000000;
+	--img-border: #000000;
+	--btn: #000000;
+	--btn-txt: #ffffff;
+	--a: #d1cff5;
+	--select: #2e25d7;
+}
+
+:root[data-theme="beige"] {
+	--bg: #fff5e6;
+	--title: #252525;
+	--txt: #8b4513;
+	--card: #ecd9bc;
+	--card-border: #bcbcbc;
+	--img-border: #7c75f1;
+	--btn: #8b4513;
+	--btn-txt: #ffffff;
+	--a: #fff5e6;
+	--select: #ff6b35;
+}
+
+:root[data-theme="nature"] {
+	--bg: #e8f5e9;
+	--title: #003d03;
+	--txt: #2e7d32;
+	--card: #bbd8be;
+	--card-border: #bcbcbc;
+	--img-border: #7c75f1;
+	--btn: #003d03;
+	--btn-txt: #ffffff;
+	--a: #e8f5e9;
+	--select: #2e7d32;
+}
+
+/* .dark-mode {
+	--bg: #252525;
+	--title: #b0acfa;
+	--txt: #ffffff;
+	--card: #151515;
+	--card-border: #000000;
+	--img-border: #000000;
+	--btn: #000000;
+	--a: #d1cff5;
+	--select: #2e25d7;
+}
+
+.beige-mode {
+	--bg: #fff5e6;
+	--title: #252525;
+	--txt: #8b4513;
+	--card: #ecd9bc;
+	--card-border: #bcbcbc;
+	--img-border: #7c75f1;
+	--btn: #8b4513;
+	--a: #fff5e6;
+	--select: #ff6b35;
+}
+
+.nature-mode {
+	--bg: #e8f5e9;
+	--title: #003d03;
+	--txt: #2e7d32;
+	--card: #bbd8be;
+	--card-border: #bcbcbc;
+	--img-border: #7c75f1;
+	--btn: #003d03;
+	--a: #e8f5e9;
+	--select: #2e7d32;
+} */
+
 body {
 	font-family: "IBM Plex Sans";
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 1.5em;
-	background-color: #fff;
+	background-color: var(--bg);
+	color: var(--txt);
+}
+
+.theme-selector {
+	padding: 5px;
+	text-align: center;
+}
+
+.themes {
+	gap: 10px;
+	display: flex;
+	margin: 10px 0px;
+}
+
+.theme {
+	border: 1px solid;
+	border-radius: 100%;
+	width: 40px;
+	height: 40px;
+	padding: 5px;
+	font-size: 20px;
+	cursor: pointer;
+	transform: all ease-in-out 0.5s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.theme:hover {
+	font-size: 25px;
+}
+
+#dark {
+	background-color: #252525;
+	color: #ffffff;
+}
+
+#light {
+	background-color: #ffffff;
+	color: #ffd600;
+}
+
+#beige {
+	background-color: #fff5e6;
+	color: #8b4513;
+	/* color: #ff6b35; */
+}
+
+#nature {
+	background-color: #e8f5e9;
+	color: #2e7d32;
+}
+
+.welcomePage {
+	height: 50vh;
+	gap: 50px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	flex-flow: column wrap;
+}
+
+.welcomePage h1 {
+	font-size: 100px;
+	line-height: normal;
 }
 
 .cards {
@@ -13,10 +166,10 @@ body {
 }
 
 .card {
-	background-color: #f4f4f4;
+	background-color: var(--card);
 	padding: 16px;
 	border-radius: 7px;
-	border: 1px solid #bcbcbc;
+	border: 1px solid var(--card-border);
 	width: 285px;
 	display: flex;
 	flex-direction: column;
@@ -30,7 +183,7 @@ body {
 	font-family: "IBM Plex Serif";
 	margin-bottom: 12px;
 	font-weight: 300;
-	color: #016040;
+	color: var(--title);
 }
 
 .card p {
@@ -45,13 +198,13 @@ body {
 
 .card .actions a {
 	font-weight: 600;
-	color: #b0acfa;
+	color: var(--a);
 	font-size: 13px;
 	text-transform: uppercase;
 }
 
 .card .actions a:hover {
-	color: #2c22df;
+	color: var(--select);
 	cursor: pointer;
 }
 
@@ -59,12 +212,12 @@ body {
 	width: 100%;
 	margin-bottom: 10px;
 	object-fit: cover;
-	border: 1px solid #7c75f1;
+	border: 1px solid var(--img-border);
 	height: 340px;
 }
 
 .filters {
-	background-color: #f2f2f2;
+	background-color: var(--card);
 	padding: 10px;
 	display: flex;
 	justify-content: flex-end;
@@ -82,25 +235,22 @@ body {
 }
 
 .filters form input {
+	background-color: var(--bg);
+	color: var(--txt);
+	border: 1px solid;
+	border-radius: 3px;
 	font-size: 12px;
 	height: 30px;
 	padding: 5px;
 }
 
 .filters form select {
+	background-color: var(--bg);
+	color: var(--txt);
+	border-radius: 3px;
 	font-size: 12px;
 	height: 30px;
 	padding: 5px;
-}
-
-.filters form button {
-	font-size: 13px;
-	background-color: #084108;
-	padding: 5px 10px;
-	color: #ececec;
-	border: 1px solid #4bff3c;
-	border-radius: 5px;
-	cursor: pointer;
 }
 
 .header {
@@ -111,19 +261,19 @@ body {
 
 .button {
 	font-size: 13px;
-	background-color: #123991;
+	background-color: var(--btn);
 	padding: 5px 10px;
-	color: #ececec;
-	border: 1px solid #4bff3c;
+	color: var(--btn-txt);
+	border: 1px solid var(--btn);
 	border-radius: 5px;
 	cursor: pointer;
 }
 
 .hCard {
-	background-color: #f4f4f4;
+	background-color: var(--card);
 	padding: 16px;
 	border-radius: 7px;
-	border: 1px solid #bcbcbc;
+	border: 1px solid var(--card-border);
 	width: 800px;
 	height: fit-content;
 	display: flex;
@@ -146,7 +296,7 @@ body {
 	font-family: "IBM Plex Serif";
 	margin-bottom: 12px;
 	font-weight: 300;
-	color: #016040;
+	color: var(--title);
 }
 
 .hCard p {
@@ -161,25 +311,25 @@ body {
 
 .hCard .actions a {
 	font-weight: 600;
-	color: #b0acfa;
+	color: var(--a);
 	font-size: 13px;
 	text-transform: uppercase;
 }
 
 .hCard .actions a:hover {
-	color: #2c22df;
+	color: var(--btn);
 	cursor: pointer;
 }
 
 .hCard img {
 	margin-bottom: 10px;
 	object-fit: cover;
-	border: 1px solid #7c75f1;
+	border: 1px solid var(--img-border);
 	height: 340px;
 }
 
 .highlight {
-	border-color: #0066cc;
+	border-color: var(--select);
 	box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
 	transition: 0.5ms;
 }
@@ -207,7 +357,7 @@ form {
 	width: fit-content;
 	display: flex;
 	justify-content: flex-end;
-	color: #252525;
+	color: var(--txt);
 	font-weight: 900;
 }
 
@@ -218,12 +368,22 @@ form {
 .input input[type="file"],
 .input select,
 .input textarea {
+	background-color: var(--bg);
 	width: 100%;
 	max-width: 400px;
 	padding: 0.5rem;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	font-size: 1rem;
+}
+
+fieldset {
+	border: none;
+	margin-left: -14px;
+}
+
+legend {
+	font-weight: 900;
 }
 
 .buttons {
@@ -313,7 +473,7 @@ form {
 }
 
 .deletePopup {
-	background-color: #eeeeee;
+	background-color: var(--card);
 	border-radius: 6px;
 	padding: 20px;
 	width: 500px;
@@ -332,7 +492,7 @@ form {
 .bookTitle {
 	font-family: "IBM Plex Serif";
 	font-weight: 300;
-	color: #016040;
+	color: var(--title);
 }
 
 .deletePopup p {
@@ -348,19 +508,18 @@ form {
 	transition: all ease-in-out 0.3s;
 }
 
+.largeBtn:hover {
+	text-transform: uppercase;
+	font-weight: 500;
+	border-width: 2px;
+}
+
 #confirmBtn {
 	background-color: #b00020;
-	color: #eeeeee;
+	color: var(--card);
 }
 
 #confirmBtn:hover {
-	background-color: #eeeeee;
+	background-color: var(--card);
 	color: #b00020;
-	text-transform: uppercase;
-	font-weight: 500;
-}
-
-#cancelBtn:hover {
-	text-transform: uppercase;
-	font-weight: 500;
 }

@@ -47,14 +47,14 @@ try {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo $_COOKIE['theme'] ?? 'light'; ?>">
 
 <head>
     <?php include 'php/inc/head_content.php'; ?>
     <title>Edit Book</title>
 </head>
 
-<body>
+<body data-page="book_edit.php">
     <div class="container">
         <div class="width-12">
             <?php require 'php/inc/flash_message.php'; ?>
@@ -115,20 +115,22 @@ try {
                 </div>
 
                 <div class="input">
-                    <label for="format_id" class="special">Available Formats:</label>
-                    <div>
-                        <?php foreach ($formats as $format) { ?>
-                            <div>
-                                <input type="checkbox"
-                                    id="format_id<?= h($format->id) ?>"
-                                    name="format_ids[]"
-                                    value="<?= h($format->id) ?>"
-                                    <?= chosen('format_ids', $format->id, $formatIds) ? "checked" : "" ?>>
-                                <label for="format_id<?= h($format->id) ?>"><?= h($format->name) ?></label>
-                            </div>
-                        <?php } ?>
-                    </div>
-                    <p class="error" id="format_ids_error"><?= error('format_ids') ?></p>
+                    <fieldset>
+                        <legend class="special">Available Formats:</legend>
+                        <div>
+                            <?php foreach ($formats as $format) { ?>
+                                <div>
+                                    <input type="checkbox"
+                                        id="format_id<?= h($format->id) ?>"
+                                        name="format_ids[]"
+                                        value="<?= h($format->id) ?>"
+                                        <?= chosen('format_ids', $format->id, $formatIds) ? "checked" : "" ?>>
+                                    <label for="format_id<?= h($format->id) ?>"><?= h($format->name) ?></label>
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <p class="error" id="format_ids_error"><?= error('format_ids') ?></p>
+                    </fieldset>
                 </div>
 
                 <div class="input">
@@ -164,9 +166,9 @@ try {
                         <img id="coverPreview" src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
 
                         <div class="actions">
-                            <a href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
-                            <a href="book_edit.php?id=<?= h($book->id) ?>">Delete</a>
-                            <a href="book_edit.php?id=<?= h($book->id) ?>">Back</a>
+                            <a>Edit</a>
+                            <a>Delete</a>
+                            <a>Back</a>
                         </div>
                     </div>
 
@@ -189,6 +191,7 @@ try {
         <script src="js/click-toggle.js"></script>
         <script src="js/books-form.js"></script>
         <script src="js/live-inputs.js"></script>
+        <script src="js/theme-selector.js"></script>
 </body>
 
 </html>

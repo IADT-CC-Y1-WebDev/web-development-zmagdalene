@@ -74,7 +74,10 @@ coverInput.addEventListener('input', (e) => {
 
 coverInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
-    if (!file) return;
+    if (!file) {
+        coverPreview.src = 'images/defaultImage';
+        return;
+    }
     const reader = new FileReader();
     reader.onload = event => coverPreview.src = event.target.result;
     reader.readAsDataURL(file);

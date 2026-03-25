@@ -28,7 +28,7 @@ try {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo $_COOKIE['theme'] ?? 'light'; ?>">
 
 <head>
     <?php include 'php/inc/head_content.php'; ?>
@@ -70,6 +70,7 @@ try {
     </div>
 
     <script src="js/click-toggle.js"></script>
+    <script src="js/theme-selector.js"></script>
 </body>
 
 </html>
