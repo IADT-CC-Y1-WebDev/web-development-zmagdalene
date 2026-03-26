@@ -65,7 +65,7 @@ try {
                 </div>
             </div>
 
-            <div class="button push-right">
+            <div class="button">
                 <a href="book_create.php">Add New Book</a>
             </div>
         </div>
@@ -124,6 +124,10 @@ try {
     </div>
 
     <div class="container">
+        <div class="width-12">
+            <h1 class=" none hidden">No Books Found.</h1>
+        </div>
+
         <?php if (empty($books)) { ?>
             <p>No Books Found.</p>
         <?php } else { ?>

@@ -1,5 +1,6 @@
 const form = document.getElementById('filters');
 const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+const none = document.querySelector('.none');
 
 function getFilters() {
     const titleEl = form.elements['title_filter'];
@@ -51,6 +52,13 @@ function applyFilters() {
     const visible = cards.filter(function (card) {
         return !card.classList.contains('hidden');
     });
+
+    if (visible.length === 0) {
+        none.classList.remove('hidden');
+    } else {
+        none.classList.add('hidden');
+    }
+
     const sorted = sortCards(visible, filters.sortBy);
     sorted.forEach(function (card) {
         cardsContainer.appendChild(card);
@@ -62,6 +70,9 @@ function clearFilters() {
     cards.forEach(function (card) {
         card.classList.remove('hidden');
     });
+
+    none.classList.add('hidden');
+
     const byTitle = sortCards(cards.slice(), 'title_asc');
     byTitle.forEach(function (card) {
         cardsContainer.appendChild(card);

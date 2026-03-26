@@ -1,3 +1,4 @@
+/* themes */
 :root[data-theme="light"] {
 	--bg: #ffffff;
 	--title: #8c86ff;
@@ -50,42 +51,7 @@
 	--select: #2e7d32;
 }
 
-/* .dark-mode {
-	--bg: #252525;
-	--title: #b0acfa;
-	--txt: #ffffff;
-	--card: #151515;
-	--card-border: #000000;
-	--img-border: #000000;
-	--btn: #000000;
-	--a: #d1cff5;
-	--select: #2e25d7;
-}
-
-.beige-mode {
-	--bg: #fff5e6;
-	--title: #252525;
-	--txt: #8b4513;
-	--card: #ecd9bc;
-	--card-border: #bcbcbc;
-	--img-border: #7c75f1;
-	--btn: #8b4513;
-	--a: #fff5e6;
-	--select: #ff6b35;
-}
-
-.nature-mode {
-	--bg: #e8f5e9;
-	--title: #003d03;
-	--txt: #2e7d32;
-	--card: #bbd8be;
-	--card-border: #bcbcbc;
-	--img-border: #7c75f1;
-	--btn: #003d03;
-	--a: #e8f5e9;
-	--select: #2e7d32;
-} */
-
+/* body */
 body {
 	font-family: "IBM Plex Sans";
 	font-size: 16px;
@@ -93,7 +59,10 @@ body {
 	line-height: 1.5em;
 	background-color: var(--bg);
 	color: var(--txt);
+	transition: all ease-in-out 0.5s;
 }
+
+/* theme-selector-icons */
 
 .theme-selector {
 	padding: 5px;
@@ -145,6 +114,7 @@ body {
 	color: #2e7d32;
 }
 
+/* index.php */
 .welcomePage {
 	height: 50vh;
 	gap: 50px;
@@ -159,6 +129,7 @@ body {
 	line-height: normal;
 }
 
+/* cards-style */
 .cards {
 	display: flex;
 	gap: 40px 20px;
@@ -216,6 +187,7 @@ body {
 	height: 340px;
 }
 
+/* filters-form style */
 .filters {
 	background-color: var(--card);
 	padding: 10px;
@@ -253,6 +225,7 @@ body {
 	padding: 5px;
 }
 
+/* head of page */
 .header {
 	display: flex;
 	align-items: baseline;
@@ -269,6 +242,12 @@ body {
 	cursor: pointer;
 }
 
+.button:hover {
+	background-color: var(--btn-txt);
+	color: var(--btn);
+}
+
+/* hCard style */
 .hCard {
 	background-color: var(--card);
 	padding: 16px;
@@ -328,12 +307,14 @@ body {
 	height: 340px;
 }
 
+/* card highlight */
 .highlight {
 	border-color: var(--select);
 	box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
 	transition: 0.5ms;
 }
 
+/* form style */
 form {
 	display: flex;
 	flex-direction: column;
@@ -391,10 +372,6 @@ legend {
 	justify-content: space-between;
 }
 
-.push-right {
-	margin-left: auto;
-}
-
 /* Flash Messages */
 .flash-message {
 	padding: 1rem;
@@ -439,6 +416,7 @@ legend {
 	unicode-bidi: isolate;
 }
 
+/* preview */
 .content {
 	display: flex;
 }
@@ -455,6 +433,7 @@ legend {
 	width: 100%;
 }
 
+/* hide&show */
 .hidden {
 	display: none;
 }
@@ -463,6 +442,7 @@ legend {
 	display: flex;
 }
 
+/* deletePopup */
 #overlay {
 	background-color: rgba(55, 55, 55, 0.7);
 	width: 100vw;
