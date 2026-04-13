@@ -106,11 +106,30 @@ body {
 #beige {
 	background-color: #fff5e6;
 	color: #8b4513;
-	/* color: #ff6b35; */
 }
 
 #nature {
 	background-color: #e8f5e9;
+	color: #2e7d32;
+}
+
+.darkTxt {
+	color: #252525;
+}
+
+.darkTxt2 {
+	color: #ffffff;
+}
+
+.lightTxt {
+	color: #ffd600;
+}
+
+.beigeTxt {
+	color: #8b4513;
+}
+
+.natureTxt {
 	color: #2e7d32;
 }
 
@@ -417,20 +436,33 @@ legend {
 }
 
 /* preview */
-.content {
-	display: flex;
-}
 
 .preview .content {
 	gap: 20px;
-	height: 100%;
+	width: 650px;
+	height: 63vh;
+	position: fixed;
 	display: flex;
 	flex-flow: column wrap;
-	justify-content: center;
+	justify-content: flex-end;
 }
 
 .preview .hCard {
 	width: 100%;
+}
+
+.toggle {
+	display: flex;
+}
+
+.toggleBtn {
+	border: 1px solid var(--txt);
+	padding: 5px 10px;
+}
+
+.selected {
+	background-color: var(--card);
+	border: 2px solid var(--txt);
 }
 
 /* hide&show */
@@ -485,7 +517,7 @@ legend {
 	width: 48%;
 	height: 35px;
 	cursor: pointer;
-	transition: all ease-in-out 0.3s;
+	transition: all ease-in-out 0.2s;
 }
 
 .largeBtn:hover {

@@ -37,6 +37,14 @@ try {
                 <div id="error_summary_top" class="error-summary" style="display:none" role="alert"></div>
 
                 <div class="input">
+                    <label for="cover" class="special">Cover Image:</label>
+                    <div>
+                        <input type="file" name="cover" id="cover" accept="image/*" value="" required>
+                        <p class="error" id="cover_error"><?= error('cover') ?></p>
+                    </div>
+                </div>
+
+                <div class="input">
                     <label for="title" class="special">Title:</label>
                     <div>
                         <input type="text" id="title" name="title" value="<?= h(old('title')) ?>" data-minlength="3" data-maxlength="255" required>
@@ -106,14 +114,6 @@ try {
                     <p class="error" id="description_error"><?= error('description') ?></p>
                 </div>
 
-                <div class="input">
-                    <label for="cover" class="special">Book Cover Image:</label>
-                    <div>
-                        <input type="file" name="cover" id="cover" accept="image/*" value="" required>
-                        <p class="error" id="cover_error"><?= error('cover') ?></p>
-                    </div>
-                </div>
-
                 <div class="buttons">
                     <button class="button"><a href="book_list.php">Cancel</a></button>
                     <button id="submit_btn" class="button" type="submit">Store Book</button>
@@ -127,7 +127,7 @@ try {
 
             <div class="content">
                 <h2>Preview</h2>
-                <div class="hCard">
+                <div class="hCard prevCard flex">
 
                     <div class="right-content">
                         <img id="coverPreview" src="images/" alt="">
@@ -148,6 +148,28 @@ try {
                         <p id="descriptionPreview">Description: </p>
                         <p id="formatsPreview">Formats: </p>
                     </div>
+                </div>
+
+                <div class="card prevCard hidden">
+
+                    <div class="topContent">
+                        <h2 id="titlePreview2">Title</h2>
+                        <p id="authorPreview2">Author: </p>
+                    </div>
+
+                    <div class="bottomContent">
+                        <img id="coverPreview2" src="images/" alt="">
+                        <div class="actions">
+                            <a class="view">View</a>
+                            <a class="edit">Edit</a>
+                            <a class="delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toggle" id="toggle">
+                    <div class="toggleBtn selected" id="toggleBtn1">1</div>
+                    <div class="toggleBtn" id="toggleBtn2">2</div>
                 </div>
             </div>
         </div>

@@ -4,6 +4,9 @@ const cardsContainer = document.getElementById('book_cards');
 const popup = document.getElementById('overlay');
 const confirm = document.getElementById('confirmBtn');
 const cancel = document.getElementById('cancelBtn');
+const toggle = document.getElementById('toggle');
+const prevCard = document.querySelectorAll('.prevCard');
+
 let activeCard;
 let deleteLink;
 
@@ -71,3 +74,16 @@ if (page === "book_list.php" || page === "book_view.php") {
         return;
     });
 }
+
+function selected(element) {
+    element.classList.toggle('selected');
+}
+
+toggle.addEventListener('click', (e) => {
+    toggle.querySelectorAll('.toggleBtn').forEach(button => {
+        selected(button);
+    })
+    prevCard.forEach(card => {
+        visibility(card);
+    })
+})

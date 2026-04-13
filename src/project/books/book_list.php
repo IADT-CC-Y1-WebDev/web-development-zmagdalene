@@ -45,22 +45,22 @@ try {
                 <div class="themes">
                     <div>
                         <div id="light" class="theme" onclick="setTheme('light')"><i class="fa-regular fa-sun"></i></div>
-                        <p>light</p>
+                        <p class="lightTxt">light</p>
                     </div>
 
                     <div>
                         <div id="dark" class="theme" onclick="setTheme('dark')"><i class="fa-regular fa-moon"></i></div>
-                        <p>dark</p>
+                        <p class="darkToggle">dark</p>
                     </div>
 
                     <div>
                         <div id="beige" class="theme" onclick="setTheme('beige')"><i class="fa-solid fa-book-open"></i></div>
-                        <p>beige</p>
+                        <p class="beigeTxt">beige</p>
                     </div>
 
                     <div>
                         <div id="nature" class="theme" onclick="setTheme('nature')"><i class="fa-solid fa-leaf"></i></div>
-                        <p>nature</p>
+                        <p class="natureTxt">nature</p>
                     </div>
                 </div>
             </div>

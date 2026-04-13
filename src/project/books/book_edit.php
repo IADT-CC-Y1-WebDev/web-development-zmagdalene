@@ -160,7 +160,7 @@ try {
 
             <div class="content">
                 <h2>Preview</h2>
-                <div class="hCard">
+                <div class="hCard prevCard flex">
 
                     <div class="right-content">
                         <img id="coverPreview" src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
@@ -181,6 +181,28 @@ try {
                         <p id="descriptionPreview">Description:<br /><?= nl2br(h(old('description', $book->description))) ?></p>
                         <p id="formatsPreview">Formats: <?= h(implode(', ', $formatNames)) ?></p>
                     </div>
+                </div>
+
+                <div class="card prevCard hidden">
+
+                    <div class="topContent">
+                        <h2 id="titlePreview2"><?= h(old('title', $book->title)) ?></h2>
+                        <p id="authorPreview2">Author: <?= h(old('author', $book->author)) ?></p>
+                    </div>
+
+                    <div class="bottomContent">
+                        <img id="coverPreview2" src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
+                        <div class="actions">
+                            <a class="view">View</a>
+                            <a class="edit">Edit</a>
+                            <a class="delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toggle" id="toggle">
+                    <div class="toggleBtn selected" id="toggleBtn1">1</div>
+                    <div class="toggleBtn" id="toggleBtn2">2</div>
                 </div>
             </div>
         </div>

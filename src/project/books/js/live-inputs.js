@@ -7,6 +7,11 @@ const formatsPreview = document.getElementById('formatsPreview');
 const descriptionPreview = document.getElementById('descriptionPreview');
 const coverPreview = document.getElementById('coverPreview');
 
+const titlePreview2 = document.getElementById('titlePreview2');
+const authorPreview2 = document.getElementById('authorPreview2');
+const coverPreview2 = document.getElementById('coverPreview2');
+
+
 // let titleInput = document.getElementById('title');
 // let authorInput = document.getElementById('author');
 // let publisherIdInput = document.getElementById('publisher_id');
@@ -33,7 +38,7 @@ function updatePreview(previewElement, text, prefix = '') {
     const trimmed = text.trim();
     let content;
 
-    if (previewElement === titlePreview) {
+    if (previewElement === titlePreview || previewElement === titlePreview2) {
         content = trimmed === '' ? 'Title' : trimmed;
     } else {
         content = trimmed === '' ? '' : trimmed;
@@ -45,9 +50,11 @@ function updatePreview(previewElement, text, prefix = '') {
 
 titleInput.addEventListener('input', (e) => {
     updatePreview(titlePreview, e.target.value);
+    updatePreview(titlePreview2, e.target.value);
 });
 authorInput.addEventListener('input', (e) => {
     updatePreview(authorPreview, e.target.value, 'Author: ');
+    updatePreview(authorPreview2, e.target.value, 'Author: ');
 });
 publisherIdInput.addEventListener('input', (e) => {
     const name = publisherMap[e.target.value] || '';
@@ -76,9 +83,13 @@ coverInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) {
         coverPreview.src = 'images/defaultImage';
+        coverPreview2.src = 'images/defaultImage';
         return;
     }
     const reader = new FileReader();
-    reader.onload = event => coverPreview.src = event.target.result;
+    reader.onload = (event) => {
+        coverPreview.src = event.target.result;
+        coverPreview2.src = event.target.result;
+    }
     reader.readAsDataURL(file);
 })
