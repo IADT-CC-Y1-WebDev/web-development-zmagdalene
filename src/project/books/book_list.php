@@ -28,7 +28,7 @@ try {
     <?php if (empty($books)) { ?>
         <p>No Books Found.</p>
     <?php } else {
-        include 'php/inc/delete_popup.php' ?>
+        include 'php/inc/delete_dialog.php' ?>
     <?php } ?>
 
     <div class="container">
@@ -133,7 +133,7 @@ try {
         <?php } else { ?>
             <div id="book_cards" class="width-12 cards">
                 <?php foreach ($books as $book) { ?>
-                    <div class="card"
+                    <div class="card book"
                         data-title="<?= h($book->title) ?>"
                         data-publisher="<?= h($book->publisher_id) ?>"
                         data-format="<?= h($bookFormatsMap[$book->id]) ?>"
@@ -147,7 +147,7 @@ try {
                             <div class="actions">
                                 <a class="view" href="book_view.php?id=<?= h($book->id) ?>">View</a>
                                 <a class="edit" href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
-                                <a class="delete" href="book_delete.php?id=<?= h($book->id) ?>" data-book-id=<?= h($book->id) ?> data-book-title="<?= h($book->title) ?>">Delete</a>
+                                <a class="deleteBtn" href="book_delete.php?id=<?= h($book->id) ?>" data-book-id=<?= h($book->id) ?> data-book-title="<?= h($book->title) ?>">Delete</a>
                             </div>
                         </div>
                     </div>
@@ -159,6 +159,7 @@ try {
     <script src="js/click-toggle.js"></script>
     <script src="js/book-filters.js"></script>
     <script src="js/theme-selector.js"></script>
+    <script src="js/delete.js"></script>
 </body>
 
 </html>

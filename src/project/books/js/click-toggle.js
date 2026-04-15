@@ -1,14 +1,14 @@
 // 08-3: Event delegation on cards
-const page = document.body.dataset.page;
-const cardsContainer = document.getElementById('book_cards');
-const popup = document.getElementById('overlay');
-const confirm = document.getElementById('confirmBtn');
-const cancel = document.getElementById('cancelBtn');
+// const page = document.body.dataset.page;
+// const popup = document.getElementById('overlay');
+// const confirm = document.getElementById('confirmBtn');
+// const cancel = document.getElementById('cancelBtn');
 const toggle = document.getElementById('toggle');
 const prevCard = document.querySelectorAll('.prevCard');
+let clickElement = document.querySelector('#book_cards');
 
-let activeCard;
-let deleteLink;
+// let activeCard;
+// let deleteLink;
 
 function visibility(element) {
     element.classList.toggle('hidden');
@@ -19,59 +19,58 @@ function highlight(element) {
     element.classList.toggle('highlight');
 }
 
-if (page === "book_list.php" || page === "book_view.php") {
+// let deleteElement = document.querySelector('.delete');
+// let deleteDialog = document.querySelector('#deleteDlg');
+// let confirmBtn = document.querySelector('#confirmBtn');
+// let cancelBtn = document.querySelector('#cancelBtn');
+// let bookTitle = document.querySelector('#dlgBookTitle');
 
-    cardsContainer.addEventListener('click', (e) => {
-        const link = e.target.closest('a');
-        let card;
+// if (deleteElement !== null && deleteDialog !== null) {
+//     let target = null;
+//     let card = null;
 
-        if (page === "book_list.php") {
-            card = e.target.closest('.card')
-        } else if (page === "book_view.php") {
-            card = e.target.closest('.hCard');
-        }
+//     deleteElement.addEventListener('click', function (e) {
+//         target = e.target;
+//         card = target.closest('.book');
 
-        if (!card || !link) return;
+//         let deleteBtn = target.closest('.deleteBtn');
 
-        highlight(card);
-        activeCard = card;
+//         if (deleteBtn !== null) {
+//             e.preventDefault();
+//             bookTitle.innerHTML = card.dataset.title;
+//             deleteDialog.showModal();
+//         }
+//     });
 
-        if (link.classList.contains("delete")) {
-            {
-                e.preventDefault();
+//     confirmBtn.addEventListener('click', function (e) {
+//         deleteDialog.close();
+//         window.location = target.href;
+//     });
+//     cancelBtn.addEventListener('click', function (e) {
+//         deleteDialog.close();
+//         console.log("Cancelled");
+//     });
+// }
+if (clickElement !== null) {
+    let target = null;
+    let card = null;
 
-                const bookId = link.dataset.bookId;
-                const bookTitle = link.dataset.bookTitle;
-                deleteLink = link;
+    clickElement.addEventListener('click', (e) => {
+        target = e.target;
+        card = target.closest('.book');
 
-                setTimeout(() => {
-                    visibility(popup);
-                }, 300);
+        let link = e.target.closest('a');
 
-                popup.querySelector('.bookTitle').textContent = bookTitle;
-                return;
-            }
-        }
-        e.preventDefault();
+        // if (!card || !link) return;
 
-        setTimeout(() => {
+        if (card !== null && link !== null && !link.classList.contains('deleteBtn')) {
+            e.preventDefault();
             highlight(card);
-            window.location.href = link.href;
-        }, 300);
-    });
 
-    confirm.addEventListener('click', () => {
-        if (!deleteLink) return;
-        setTimeout(() => {
-            window.location.href = deleteLink.href;
-        }, 300);
-        return;
-    });
-
-    cancel.addEventListener('click', () => {
-        highlight(activeCard);
-        visibility(popup);
-        return;
+            setTimeout(() => {
+                window.location.href = link.href;
+            }, 300);
+        }
     });
 }
 
@@ -79,11 +78,13 @@ function selected(element) {
     element.classList.toggle('selected');
 }
 
-toggle.addEventListener('click', (e) => {
-    toggle.querySelectorAll('.toggleBtn').forEach(button => {
-        selected(button);
+if (toggle !== null) {
+    toggle.addEventListener('click', () => {
+        toggle.querySelectorAll('.toggleBtn').forEach(button => {
+            selected(button);
+        })
+        prevCard.forEach(card => {
+            visibility(card);
+        })
     })
-    prevCard.forEach(card => {
-        visibility(card);
-    })
-})
+}

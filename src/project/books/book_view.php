@@ -36,7 +36,7 @@ try {
 </head>
 
 <body data-page="book_view.php">
-    <?php include 'php/inc/delete_popup.php' ?>
+    <?php include 'php/inc/delete_dialog.php' ?>
 
     <div class="container">
         <div class="width-12 header">
@@ -45,13 +45,13 @@ try {
     </div>
     <div class="container">
         <div class="width-12" id="book_cards">
-            <div class="hCard">
+            <div class="hCard book" data-title="<?= h($book->title) ?>">
                 <div class="right-content">
                     <img src="images/<?= h($book->cover_filename) ?>" alt="Image For <?= h($book->title) ?>">
 
                     <div class="actions">
                         <a class="edit" href="book_edit.php?id=<?= h($book->id) ?>">Edit</a>
-                        <a class="delete" href="book_delete.php?id=<?= h($book->id) ?>" data-book-id=<?= h($book->id) ?> data-book-title="<?= h($book->title) ?>">Delete</a>
+                        <a class="delete deleteBtn" href="book_delete.php?id=<?= h($book->id) ?>" data-book-id=<?= h($book->id) ?> data-book-title="<?= h($book->title) ?>">Delete</a>
                         <a class="back" href="book_list.php">Back</a>
                     </div>
                 </div>
@@ -71,6 +71,7 @@ try {
 
     <script src="js/click-toggle.js"></script>
     <script src="js/theme-selector.js"></script>
+    <script src="js/delete.js"></script>
 </body>
 
 </html>

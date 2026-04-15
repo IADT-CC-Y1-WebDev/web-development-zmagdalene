@@ -69,6 +69,10 @@ body {
 	text-align: center;
 }
 
+.theme-selector .head p {
+	font-weight: 900;
+}
+
 .themes {
 	gap: 10px;
 	display: flex;
@@ -452,12 +456,14 @@ legend {
 }
 
 .toggle {
+	width: fit-content;
 	display: flex;
 }
 
 .toggleBtn {
 	border: 1px solid var(--txt);
 	padding: 5px 10px;
+	cursor: pointer;
 }
 
 .selected {
@@ -475,39 +481,45 @@ legend {
 }
 
 /* deletePopup */
-#overlay {
+/* #deleteDlg {
 	background-color: rgba(55, 55, 55, 0.7);
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
 	justify-content: center;
 	align-items: center;
+} */
+
+dialog::backdrop {
+	backdrop-filter: blur(1px);
 }
 
-.deletePopup {
+dialog {
 	background-color: var(--card);
-	border-radius: 6px;
+	border-color: var(--card-border);
+	border-radius: 12px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 	padding: 20px;
 	width: 500px;
 	height: 195px;
 	text-align: center;
-	display: flex;
-	justify-content: space-between;
-	flex-flow: column wrap;
+	/* justify-content: space-between;
+	flex-flow: column wrap; */
 }
 
-.deletePopup h2 {
+dialog h2 {
+	color: var(--txt);
 	font-size: 23px;
 	line-height: normal;
 }
 
-.bookTitle {
+#dlgBookTitle {
 	font-family: "IBM Plex Serif";
 	font-weight: 300;
 	color: var(--title);
 }
 
-.deletePopup p {
+dialog p {
 	color: #b00020;
 }
 
