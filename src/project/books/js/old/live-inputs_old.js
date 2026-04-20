@@ -16,7 +16,6 @@ let previews = [titlePreview, authorPreview, publisherPreview, yearPreview, isbn
 
 titleInput.addEventListener('input', () => {
     title.innerHTML = titleInput.value;
-    console.log(titleInput.value);
 });
 
 // let titleInput = document.getElementById('title');

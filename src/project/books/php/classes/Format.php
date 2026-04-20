@@ -1,59 +1,22 @@
 <?php
 
-class Format
+class Format extends Model
 {
+    protected static $table = 'formats';
+    protected static $orderBy = 'name';
 
     public $id;
     public $name;
 
-    private $db;
-
     public function __construct($data = [])
     {
-        $this->db = DB::getInstance()->getConnection();
-
-        if (!empty($data)) {
-            $this->id = $data['id'] ?? null;
-            $this->name = $data['name'] ?? null;
-        }
-    }
-
-    public static function findAll()
-    {
-        $db = DB::getInstance()->getConnection();
-
-        $stmt = $db->prepare("SELECT * FROM formats ORDER BY name");
-        $stmt->execute();
-
-        $formats = [];
-
-        while ($row = $stmt->fetch()) {
-            $formats[] = new Format($row);
-        }
-
-        return $formats;
-    }
-
-    public static function findById($id)
-    {
-        $db = DB::getInstance()->getConnection();
-
-        $stmt = $db->prepare("SELECT * FROM formats WHERE id = :id");
-        $stmt->execute(['id' => $id]);
-
-        $row = $stmt->fetch();
-
-        if ($row) {
-            return new Format($row);
-        }
-
-        return null;
+        $this->fill($data);
     }
 
     // Find formats by book (requires JOIN with book_format table)
     public static function findByBook($bookId)
     {
-        $db = DB::getInstance()->getConnection();
+        $db = static::db();
         $stmt = $db->prepare("
             SELECT f.*
             FROM formats f
@@ -71,68 +34,8 @@ class Format
         return $formats;
     }
 
-    // public function save()
-    // {
-    //     $stmt = $this->db->prepare("INSERT INTO formats (name) VALUES (:name)");
-
-    //     $params = [
-    //         'name' => $this->name,
-    //     ];
-
-    //     $status = $stmt->execute($params);
-
-    //     if (!$status) {
-    //         $error_info = $stmt->errorInfo();
-    //         $message = sprintf(
-    //             "SQLSTATE error code: %d error message: %s",
-    //             $error_info[0],
-    //             $error_info[2]
-    //         );
-    //         throw new Exception($message);
-    //     }
-
-    //     if ($stmt->rowCount() !== 1) {
-    //         throw new Exception("Failed to save format.");
-    //     }
-
-
-    //     if ($this->id === null) {
-    //         $this->id = $this->db->lastInsertId();
-    //     }
-    // }
-
-    // public function update()
-    // {
-    //     $stmt = $this->db->prepare("UPDATE formats
-    //     SET 
-    //     name = :name
-
-    //     WHERE id = :id
-    //     ");
-
-    //     $params = [
-    //         'name' => $this->name,
-    //         'id' => $this->id
-    //     ];
-
-    //     $stmt->execute($params);
-    // }
-
-    // public function delete()
-    // {
-    //     if (!$this->id) {
-    //         return false;
-    //     }
-
-    //     $stmt = $this->db->prepare("DELETE * FROM formats WHERE id = :id");
-    //     $stmt->execute(['id' => $this->id]);
-    // }
-
     public function toArray()
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name
-        ];
+        return get_object_vars($this);
     }
 }

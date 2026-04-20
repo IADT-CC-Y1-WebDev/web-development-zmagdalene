@@ -17,6 +17,7 @@ if (deleteElement !== null && deleteDialog !== null) {
 
         if (deleteBtn !== null) {
             e.preventDefault();
+            highlight(card);
             bookTitle.textContent = card.dataset.title;
             setTimeout(() => {
                 deleteDialog.showModal();

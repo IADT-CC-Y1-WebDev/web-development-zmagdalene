@@ -43,23 +43,23 @@ try {
                 </div>
 
                 <div class="themes">
-                    <div>
-                        <div id="light" class="theme" onclick="setTheme('light')"><i class="fa-regular fa-sun"></i></div>
+                    <div class="themeContainer" data-theme='light'>
+                        <div id="light" class="theme"><i class="fa-regular fa-sun"></i></div>
                         <p class="lightTxt">light</p>
                     </div>
 
-                    <div>
-                        <div id="dark" class="theme" onclick="setTheme('dark')"><i class="fa-regular fa-moon"></i></div>
+                    <div class="themeContainer" data-theme='dark'>
+                        <div id="dark" class="theme"><i class="fa-regular fa-moon"></i></div>
                         <p class="darkToggle">dark</p>
                     </div>
 
-                    <div>
-                        <div id="beige" class="theme" onclick="setTheme('beige')"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="themeContainer" data-theme='beige'>
+                        <div id="beige" class="theme"><i class="fa-solid fa-book-open"></i></div>
                         <p class="beigeTxt">beige</p>
                     </div>
 
-                    <div>
-                        <div id="nature" class="theme" onclick="setTheme('nature')"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="themeContainer" data-theme='nature'>
+                        <div id="nature" class="theme"><i class="fa-solid fa-leaf"></i></div>
                         <p class="natureTxt">nature</p>
                     </div>
                 </div>

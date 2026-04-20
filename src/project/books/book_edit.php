@@ -148,7 +148,7 @@ try {
                 </div>
 
                 <div class="buttons">
-                    <button class="button"><a href="book_list.php">Cancel</a></button>
+                    <a class="button" href="book_list.php">Cancel</a>
                     <button id="submit_btn" class="button" type="submit">Update Book</button>
                 </div>
             </form>
@@ -213,7 +213,6 @@ try {
         <script src="js/click-toggle.js"></script>
         <script src="js/books-form.js"></script>
         <script src="js/live-inputs.js"></script>
-        <script src="js/theme-selector.js"></script>
 </body>
 
 </html>

@@ -83,10 +83,8 @@ function clearFilters() {
 document.getElementById('apply_filters').addEventListener('click', (e) => {
     e.preventDefault();
     applyFilters();
-    console.log("clicked!");
 });
 document.getElementById('clear_filters').addEventListener('click', (e) => {
     e.preventDefault();
     clearFilters();
-    console.log("clicked!");
 });

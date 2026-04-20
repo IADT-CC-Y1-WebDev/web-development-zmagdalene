@@ -1,9 +1,6 @@
 <?php
-class Book extends Model
+class Book
 {
-    protected static $table = 'books';
-    protected static $orderBy = 'title';
-
     public $id;
     public $title;
     public $author;
@@ -13,15 +10,60 @@ class Book extends Model
     public $description;
     public $cover_filename;
 
+    private $db;
+
     public function __construct($data = [])
     {
-        $this->fill($data);
+        $this->db = DB::getInstance()->getConnection();
+
+        if (!empty($data)) {
+            $this->id = $data['id'] ?? null;
+            $this->title = $data['title'] ?? null;
+            $this->author = $data['author'] ?? null;
+            $this->publisher_id =  $data['publisher_id'] ?? null;
+            $this->year = $data['year'] ?? null;
+            $this->isbn = $data['isbn'] ?? null;
+            $this->description = $data['description'] ?? null;
+            $this->cover_filename = $data['cover_filename'] ?? null;
+        }
+    }
+
+    public static function findAll()
+    {
+        $db = DB::getInstance()->getConnection();
+
+        $stmt = $db->prepare("SELECT * FROM books ORDER BY title");
+        $stmt->execute();
+
+        $books = [];
+
+        while ($row = $stmt->fetch()) {
+            $books[] = new Book($row);
+        }
+
+        return $books;
+    }
+
+    public static function findById($id)
+    {
+        $db = DB::getInstance()->getConnection();
+
+        $stmt = $db->prepare("SELECT * FROM books WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+
+        $row = $stmt->fetch();
+
+        if ($row) {
+            return new Book($row);
+        }
+
+        return null;
     }
 
     // Find books by publisher
     public static function findByPublisher($publisherId)
     {
-        $db = static::db();
+        $db = DB::getInstance()->getConnection();
         $stmt = $db->prepare("SELECT * FROM books WHERE publisher_id = :publisher_id ORDER BY title");
         $stmt->execute(['publisher_id' => $publisherId]);
 
@@ -36,13 +78,13 @@ class Book extends Model
     // Find books by format (requires JOIN with BookFormats table)
     public static function findByFormat($formatId)
     {
-        $db = static::db();
+        $db = DB::getInstance()->getConnection();
         $stmt = $db->prepare("
-            SELECT b.*
-            FROM books b
-            INNER JOIN book_format bf ON b.id = bf.book_id
+            SELECT f.*
+            FROM books f
+            INNER JOIN book_format bf ON f.id = bf.book_id
             WHERE bf.format_id = :format_id
-            ORDER BY b.title
+            ORDER BY f.title
         ");
         $stmt->execute(['format_id' => $formatId]);
 
@@ -134,6 +176,15 @@ class Book extends Model
 
     public function toArray()
     {
-        return get_object_vars($this);
+        return [
+            'title' => $this->title,
+            'author' => $this->author,
+            'publisher_id' => $this->publisher_id,
+            'year' => $this->year,
+            'isbn' => $this->isbn,
+            'description' => $this->description,
+            'cover_filename' => $this->cover_filename,
+            'id' => $this->id
+        ];
     }
 }

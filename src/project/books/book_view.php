@@ -70,7 +70,6 @@ try {
     </div>
 
     <script src="js/click-toggle.js"></script>
-    <script src="js/theme-selector.js"></script>
     <script src="js/delete.js"></script>
 </body>
 
