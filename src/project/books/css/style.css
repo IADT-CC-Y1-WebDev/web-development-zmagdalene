@@ -444,7 +444,7 @@ legend {
 .preview .content {
 	gap: 20px;
 	width: 650px;
-	height: 63vh;
+	height: 600px;
 	position: fixed;
 	display: flex;
 	flex-flow: column wrap;

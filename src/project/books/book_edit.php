@@ -7,7 +7,6 @@ require_once 'php/lib/utils.php';
 startSession();
 
 $errors = getFormErrors();
-dd($errors);
 
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {

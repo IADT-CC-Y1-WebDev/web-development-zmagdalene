@@ -22,6 +22,7 @@ class Book extends Model
     public static function findByPublisher($publisherId)
     {
         $db = static::db();
+
         $stmt = $db->prepare("SELECT * FROM books WHERE publisher_id = :publisher_id ORDER BY title");
         $stmt->execute(['publisher_id' => $publisherId]);
 
@@ -37,6 +38,7 @@ class Book extends Model
     public static function findByFormat($formatId)
     {
         $db = static::db();
+
         $stmt = $db->prepare("
             SELECT b.*
             FROM books b
@@ -56,9 +58,11 @@ class Book extends Model
 
     public function save()
     {
+        $db = static::db();
+
         if ($this->id) {
             // Update existing record
-            $stmt = $this->db->prepare("
+            $stmt = $db->prepare("
                 UPDATE books
                 SET title = :title,
                     author = :author,
@@ -82,7 +86,7 @@ class Book extends Model
             ];
         } else {
             // Insert new record
-            $stmt = $this->db->prepare("
+            $stmt = $db->prepare("
                 INSERT INTO books (title, author, publisher_id, year, isbn, description, cover_filename) VALUES (:title, :author, :publisher_id, :year, :isbn, :description, :cover_filename)
                 ");
 
@@ -117,17 +121,19 @@ class Book extends Model
 
         // Set ID for new records
         if ($this->id === null) {
-            $this->id = $this->db->lastInsertId();
+            $this->id = $db->lastInsertId();
         }
     }
 
     public function delete()
     {
+        $db = static::db();
+
         if (!$this->id) {
             return false;
         }
 
-        $stmt = $this->db->prepare("DELETE FROM books WHERE id = :id");
+        $stmt = $db->prepare("DELETE FROM books WHERE id = :id");
         $stmt->execute(['id' => $this->id]);
     }
 
